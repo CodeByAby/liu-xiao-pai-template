@@ -4,417 +4,184 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概览
 
-这是一个**功能完整的生产级** AI SaaS 应用模板,包含完整的用户认证、订阅计费、积分系统、AI 功能集成(对话/图像/视频生成)、管理后台和国际化支持。专为快速启动商业化 AI SaaS 产品而设计。
+这是 **Sistine Starter (`sistine-starter-vibe-to-production`)** —— 一个**功能完整的生产级 AI SaaS 应用模板**(仓库目录名为 `liu-xiao-pai-template`)。它面向"用 AI 助手快速搭建并上线商业化 AI SaaS"的场景,内置认证、订阅计费、积分系统、AI 功能(对话/图像/视频)、管理后台、邮件、国际化和内置文档站。
 
-**核心特性**:
-- ✅ 完整的用户认证系统 (Better Auth + Google OAuth)
-- ✅ 基于积分的计费系统 + 订阅管理 (Creem 支付集成)
-- ✅ AI 功能: 对话、图像生成、视频生成 (火山引擎/豆包 API)
-- ✅ 管理后台 (用户管理、订阅管理、积分调整)
-- ✅ 国际化支持 (中文/英文)
-- ✅ 邮件系统 (Resend 集成,支持交易邮件和 Newsletter)
-- ✅ 营销页面 (首页、定价、博客、隐私政策、退款政策等)
-- ✅ 分析工具集成 (PostHog、Google Analytics、Microsoft Clarity)
+修改代码时请同时兼顾两个目标:
+1. **保持模板可复用性**(面向购买者/学员),避免引入私有依赖或外部运行时 demo 资源。
+2. **保持生产数据流正确性**:auth、billing、credits、subscription、generation 都是"一致性敏感"系统,严禁只改 UI 而让数据库状态漂移。
+
+> 仓库根目录还有一份 `AGENTS.md`,内容与本文件高度重叠且更偏"约束清单";改动行为时两份文档都应保持与代码一致。
 
 ## 技术栈
 
-### 前端
-- **框架**: Next.js 16.2.2 (App Router) + React 19
-- **样式**: Tailwind CSS + Framer Motion 动画
-- **UI 组件**: 自定义组件库 + Radix UI
-- **表单**: React Hook Form + Zod 验证
-- **主题**: next-themes (深色/浅色模式)
-- **国际化**: next-intl (支持动态路由 `[locale]`)
+- **框架**: Next.js **16.2.2** (App Router) + React 19 + TypeScript (strict)
+- **样式**: Tailwind CSS **v3** + Framer Motion;UI 用自定义组件 + Radix UI(README 称 shadcn 风格)
+- **认证**: Better Auth(邮箱密码 + 可选 Google OAuth)+ Drizzle adapter
+- **数据库**: PostgreSQL + Drizzle ORM(`postgres` / `pg` 驱动)
+- **支付**: Creem(订阅 + 一次性积分包)
+- **AI**: 火山引擎 / 豆包(对话、图生图、文/图生视频)
+- **邮件**: Resend(交易邮件 + Newsletter)
+- **国际化**: next-intl(`en` / `zh`)
+- **文档站**: Fumadocs(`fumadocs-mdx` + `fumadocs-ui`)
+- **测试**: Vitest + Testing Library(jsdom)
+- **包管理**: pnpm(`package.json` 声明 `packageManager: pnpm`,即使存在 `package-lock.json` 也用 pnpm)
 
-### 后端
-- **身份认证**: Better Auth (邮箱密码 + Google OAuth)
-- **数据库**: PostgreSQL + Drizzle ORM
-- **支付**: Creem (支持订阅和一次性购买)
-- **AI 服务**: 火山引擎 (豆包 API)
-  - 对话: `doubao-1-5-thinking-pro-250415`
-  - 图像: `doubao-seededit-3-0-i2i-250628`
-  - 视频: `doubao-seedance-1-0-pro-250528`
-- **邮件**: Resend (交易邮件 + Newsletter)
-- **存储**: AWS S3 兼容 (可选,用于文件上传)
-
-### 开发工具
-- **类型安全**: TypeScript (strict mode)
-- **代码规范**: ESLint
-- **包管理**: pnpm
-
-## 项目结构
-
-```
-├── app/[locale]/              # 国际化路由
-│   ├── (auth)/                # 认证页面 (登录、注册、忘记密码)
-│   ├── (marketing)/           # 营销页面 (首页、定价、博客、联系)
-│   ├── (protected)/           # 需要认证的页面 (仪表板、个人资料、积分页)
-│   ├── (admin)/               # 管理后台 (用户管理、订阅管理、积分管理)
-│   └── demo/                  # AI 功能演示页 (聊天、图像、视频)
-│   └── docs/                  # 内置文档站点 (Fumadocs, 中英文)
-├── app/api/                   # API 路由
-│   ├── auth/                  # Better Auth API + 自定义认证端点
-│   ├── payments/creem/        # Creem 支付 (checkout + webhook)
-│   ├── chat/                  # 对话 API (含流式响应)
-│   ├── image/generate/        # 图像生成 API
-│   ├── video/                 # 视频生成 API (异步任务)
-│   ├── user/                  # 用户信息 API
-│   └── cron/                  # 定时任务 (积分发放等)
-├── components/                # 可重用 UI 组件
-├── features/                  # 功能模块 (auth、forms、marketing、navigation、admin)
-├── lib/                       # 核心业务逻辑
-│   ├── auth.ts                # Better Auth 配置
-│   ├── auth/google-auth.ts    # Google OAuth 可选化开关
-│   ├── db/                    # 数据库连接和 Schema
-│   ├── credits.ts             # 积分系统核心逻辑
-│   ├── payments/creem.ts      # Creem 支付集成
-│   ├── billing/               # 订阅和积分发放调度
-│   ├── volcano-engine/        # 火山引擎 API 封装
-│   └── email.ts               # 邮件发送逻辑
-├── content/docs/              # Docs MDX 源文件
-├── constants/                 # 常量定义
-│   ├── billing.ts             # 定价计划和积分包配置
-│   ├── tier.ts                # 用户等级定义
-│   └── website.ts             # 网站信息
-├── messages/                  # 国际化翻译文件
-│   ├── en.json                # 英文 UI 文案
-│   ├── zh.json                # 中文 UI 文案
-│   ├── seo.en.json            # 英文 SEO 文案
-│   └── seo.zh.json            # 中文 SEO 文案
-└── drizzle/                   # 数据库迁移文件
-```
-
-## 核心业务流程
-
-### 1. 用户注册与积分赠送
-- 用户通过邮箱或 Google OAuth 注册
-- 系统自动赠送 **300 积分**新人礼包 (`lib/auth.ts:44-49`)
-- 积分记录到 `creditLedger` 表,原因为 `registration_bonus`
-
-### 2. 积分系统架构
-**核心文件**: `lib/credits.ts`, `lib/db/schema.ts`
-
-**表结构**:
-- `user.credits`: 用户当前可用积分
-- `creditLedger`: 积分变动账本 (可审计,记录每笔增减)
-  - `delta`: 积分变化量 (正数为增加,负数为扣除)
-  - `reason`: 变动原因 (如 `chat_usage`, `subscription_cycle`, `one_time_pack`, `registration_bonus`)
-  - `paymentId`: 关联的支付记录 ID (如果有)
-
-**核心 API**:
-- `getUserCredits(userId)`: 查询用户积分
-- `deductCredits(userId, amount, reason)`: 扣除积分 (事务性操作,同时更新 `user.credits` 和 `creditLedger`)
-- `refundCredits(userId, amount, reason)`: 退还积分
-- `canUserAfford(userId, creditsNeeded)`: 检查用户是否有足够积分
-
-**积分消耗规则** (可在各 API 路由中调整):
-- 对话: 10 积分/次 (`lib/credits.ts:5`)
-- 图像生成: 参考 `app/api/image/route.ts`
-- 视频生成: 参考 `app/api/video/generate/route.ts`
-
-### 3. 订阅与支付流程 (Creem)
-**核心文件**: `lib/payments/creem.ts`, `app/api/payments/creem/webhook/route.ts`, `constants/billing.ts`
-
-#### 订阅计划配置 (`constants/billing.ts`)
-```typescript
-starter_monthly: $29/月 → 1000 积分
-starter_yearly:  $290/年 → 12000 积分 (分 12 个月发放,每月 1000)
-pro_monthly:     $99/月 → 10000 积分
-pro_yearly:      $990/年 → 120000 积分 (分 12 个月发放,每月 10000)
-
-一次性积分包:
-pack_200:        $5 → 200 积分
-```
-
-#### 支付流程
-1. **用户点击购买** → 前端调用 `/api/payments/creem/checkout`
-2. **创建 Checkout Session** (`lib/payments/creem.ts:24-74`)
-   - 调用 Creem API 创建支付会话
-   - metadata 中携带 `userId`, `key` (计划标识), `kind` (subscription/one_time)
-3. **用户完成支付** → Creem 发送 webhook 到 `/api/payments/creem/webhook`
-4. **Webhook 处理** (`app/api/payments/creem/webhook/route.ts`)
-   - ✅ 验证签名 (`verifyWebhookSignature`)
-   - ✅ 幂等性检查 (通过 `providerPaymentId` 防止重复处理)
-   - ✅ 插入 `payment` 记录
-   - ✅ 创建/更新 `subscription` 记录 (如果是订阅)
-   - ✅ 发放积分到 `user.credits` + 记录到 `creditLedger`
-   - ✅ 设置积分发放调度 (`subscriptionCreditSchedule`,年付计划分期发放)
-   - ✅ 发送购买确认邮件
-
-#### 年付订阅的分期发放机制
-- 年付计划不会一次性发放全部积分,而是分 12 个月发放
-- 通过 `subscriptionCreditSchedule` 表管理调度
-- 定时任务 (`app/api/cron/subscription-grants/route.ts`) 每小时检查并发放积分
-
-### 4. AI 功能集成 (火山引擎)
-**核心文件**: `lib/volcano-engine/`
-
-#### 对话功能 (`app/api/chat/route.ts` + `/stream/route.ts`)
-- 模型: `doubao-1-5-thinking-pro-250415`
-- 支持流式响应 (Server-Sent Events)
-- 每次对话扣除 10 积分
-- 会话历史存储在 `chatSession` 和 `chatMessage` 表
-
-#### 图像生成 (`app/api/image/generate/route.ts`)
-- 模型: `doubao-seededit-3-0-i2i-250628` (图生图)
-- 结果存储在 `generationHistory` 表
-
-#### 视频生成 (`app/api/video/generate/route.ts` + `/status/route.ts`)
-- 模型: `doubao-seedance-1-0-pro-250528`
-- **异步任务流程**:
-  1. 提交生成请求 → 返回 `taskId`
-  2. 轮询 `/api/video/status?taskId=xxx` 检查状态
-  3. 完成后结果存储在 `generationHistory.resultUrl`
-
-### 5. 管理后台功能
-**核心文件**: `app/[locale]/(admin)/admin/`, `app/api/admin/`
-
-管理员权限通过 `user.role = 'admin'` 标识。
-
-**功能**:
-- **用户管理** (`admin/users/page.tsx`):
-  - 查看所有用户
-  - 查看用户订阅状态
-  - 手动调整用户积分 (`/api/admin/users/[userId]/credits`)
-  - 修改用户订阅 (`/api/admin/users/[userId]/subscription`)
-- **订阅管理** (`admin/subscriptions/page.tsx`):
-  - 查看所有活跃订阅
-- **积分管理** (`admin/credits/page.tsx`):
-  - 查看积分账本记录
-
-**创建管理员账户**:
-```bash
-pnpm admin:setup
-# 或手动在数据库中将 user.role 设为 'admin'
-```
-
-## 常用开发命令
+## 常用命令
 
 ```bash
-# 启动开发服务器
-pnpm dev
-pnpm dev:webpack  # Turbopack 太重时的兜底方案
+# 开发
+pnpm dev              # 经 scripts/run-dev.mjs 启动:先同步 fumadocs 样式,再以净化环境跑 next dev
+pnpm dev:webpack      # Turbopack 太重时的兜底(强制 webpack)
+pnpm dev:turbopack    # 强制 turbopack
 
-# 构建生产版本
-pnpm build
-
-# 启动生产服务器
+# 构建 / 生产
+pnpm build            # = generate:blog-manifest + sync:fumadocs-style + next build
 pnpm start
 
 # 代码检查
-pnpm lint
+pnpm lint             # eslint .
 
-# 数据库操作
-pnpm db:generate    # 生成 Drizzle 迁移文件
-pnpm db:migrate     # 执行数据库迁移
-pnpm db:push        # 推送 schema 到数据库 (开发环境)
-pnpm db:studio      # 启动 Drizzle Studio 数据库管理界面
+# 测试 (Vitest)
+pnpm test             # 跑一遍全部测试
+pnpm test:watch       # 监视模式
+pnpm test:coverage    # 覆盖率 (v8, text + html)
+pnpm test -- tests/lib/credit-compensation.test.ts   # 跑单个测试文件
+pnpm test -- -t "关键字"                              # 按用例名过滤
 
-# 管理员工具
-pnpm admin:setup    # 创建管理员账户
+# 数据库 (Drizzle Kit)
+pnpm db:generate      # 生成迁移文件
+pnpm db:migrate       # 执行迁移
+pnpm db:push          # 直接把 schema 推到库(开发/首次部署常用)
+pnpm db:studio        # Drizzle Studio
 
-# 博客清单生成
-pnpm generate:blog-manifest
+# 工具脚本
+pnpm admin:setup              # 把 ADMIN_EMAIL 对应用户的 role 设为 admin(scripts/setup-admin.ts)
+pnpm generate:blog-manifest   # 增删/重命名博客后必须重新生成清单
+pnpm sync:fumadocs-style      # 同步 fumadocs 样式到 public/(predev/prebuild 自动调用)
 ```
 
-## 环境变量配置
+**命令注意事项**:
+- `pnpm dev` **不会**重新生成博客清单;只有 `pnpm build` 会。增删博客文章后请手动 `pnpm generate:blog-manifest` 再提交。
+- 验证策略:改 UI/路由/翻译跑 `pnpm lint`;改 billing/auth/credits/email/session 等逻辑跑 `pnpm test`;改路由/中间件/auth/next 配置/环境敏感的 server 代码跑 `pnpm build`。
 
-**必需的环境变量** (参考 `.env.example`):
+## 整体架构
 
-```env
-# 数据库
-DATABASE_URL="postgresql://user:password@host/db?sslmode=require"
+### 路由结构 (`app/[locale]/`)
 
-# Better Auth
-BETTER_AUTH_SECRET="至少32字符的随机密钥"
-BETTER_AUTH_URL="http://localhost:3000"  # 生产环境改为实际域名
+所有页面都在 `[locale]` 动态段下,按 route group 分类(括号目录不进 URL):
+- `(marketing)` —— **公开**:首页、`pricing`、`blog`、`contact`、`privacy`/`terms`/`cookies`/`refund` 等法务页
+- `(auth)` —— **公开**:`login`、`signup`、`forgot-password`、`reset-password`
+- `(protected)` —— **需登录**:`dashboard`、`profile`、`settings`、`credits`
+- `(admin)` —— **需 admin**:`admin`、`admin/users`、`admin/subscriptions`、`admin/credits`
+- `demo` —— **公开**:`demo/chat`、`demo/image`、`demo/video`(AI 功能演示)
+- `docs` —— Fumadocs 文档,catch-all `docs/[[...slug]]`
 
-# Google OAuth (可选；同时配置两个值才会显示 Google 按钮)
-AUTH_GOOGLE_ID="your-google-client-id"
-AUTH_GOOGLE_SECRET="your-google-client-secret"
+API 在 `app/api/`:`auth/`、`chat/`、`image/`、`video/`、`payments/creem/`、`admin/`、`cron/`、`upload/`、`newsletter/`、`user/`。
 
-# 火山引擎 (必需,用于 AI 功能)
-VOLCANO_ENGINE_API_KEY="your-volcano-engine-api-key"
-VOLCANO_ENGINE_API_URL="https://ark.cn-beijing.volces.com/api/v3"
+### 路由权限(分服务端 + 客户端两层)
 
-# Creem 支付 (必需,用于订阅和支付)
-CREEM_API_KEY="your-creem-api-key"
-CREEM_WEBHOOK_SECRET="whsec_..."
-# 测试环境可设置 CREEM_SIMULATE="true" 跳过实际支付
+- **服务端守卫(权威)**:`(protected)/layout.tsx` 和 `(admin)/layout.tsx` 在渲染前用 `getActiveSessionUser(await headers())`(`lib/auth/session.ts`)/ `requireAdmin()`(`lib/auth/admin.ts`)解析会话,失败则 `redirect`。这是真正的访问控制。
+- **客户端守卫(体验)**:`features/auth/components/session-guard.tsx`(`useSession`)和 `email-verified-guard.tsx`(强制邮箱验证)用于加载态/未验证提示。**不要**把它们当作唯一的安全边界。
+- API 路由统一靠 `getActiveSessionUser(req.headers)` 取 user,内部经 `isBanActive()` 处理封禁(`banned` + `banExpires` 临时/永久)。
 
-# Resend 邮件 (必需,用于认证和交易邮件)
-RESEND_API_KEY="re_your_api_key"
-RESEND_FROM_EMAIL="Your App <noreply@yourdomain.com>"
+### 积分系统(核心,一致性敏感)
 
-# 定时任务认证 (用于 cron 端点)
-CRON_SECRET="your-cron-secret"
+**文件**:`lib/credits.ts`、`lib/credit-compensation.ts`、`lib/db/schema.ts`
 
-# 应用 URL
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-```
+- 两处状态必须同步,且应在**同一事务**内更新:
+  - `user.credits` —— 快速余额
+  - `credit_ledger`(Drizzle 变量 `creditLedger`)—— 审计账本,`delta` 正增负减,`reason` 记录原因
+- 核心 API(均为事务性):`getUserCredits`、`canUserAfford` / `canUserChat`、`deductCredits(userId, amount, reason, referenceId)`、`refundCredits(...)`。
+- 新用户注册赠送 **300 积分**:在 `lib/auth.ts` 的 Better Auth `after` hook 里,监听 `/sign-up` 后调用 `refundCredits(..., 300, "registration_bonus")`(邮箱与 OAuth 注册都覆盖)。
 
-**可选的环境变量**:
-- `NEXT_PUBLIC_POSTHOG_KEY`: PostHog 分析
-- `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID`: Google Analytics
-- `NEXT_PUBLIC_CLARITY_PROJECT_ID`: Microsoft Clarity
-- `STORAGE_*`: S3 兼容存储配置 (用于文件上传)
+**积分消耗(写死在各路由,改价请同步)**:
 
-## 数据库架构 (核心表)
+| 操作 | 消耗 | 常量/位置 | ledger reason |
+|------|------|-----------|---------------|
+| 对话 | **10** | `lib/credits.ts` `CHAT_CREDIT_COST` | `chat_usage` |
+| 图像生成 | **20** | `app/api/image/generate/route.ts` | `image_generation` |
+| 视频生成 | **50** | `app/api/video/generate/route.ts` | `video_generation` |
 
-```sql
--- 用户表
-user (id, email, credits, planKey, role, banned, ...)
+其它 ledger reason:`registration_bonus`、`one_time_pack`、`subscription_cycle`(订阅首发)、`subscription_schedule`(年付分期)、`adjustment`(管理员调整)、`*_refund`(补偿退款)。
 
--- 认证表
-session (id, userId, token, expiresAt, ...)
-account (id, userId, providerId, accessToken, ...)
+**关键不变量 —— 积分补偿模式**:付费 AI 路由先扣费、再调用 provider,用 `createCreditCompensation(...)`(`lib/credit-compensation.ts`)兜底:
+1. 扣费成功后创建 compensation 对象(`settled = false`);
+2. provider 成功 → `compensation.settle()`(标记已结算,**不退款**);
+3. provider 抛错 → catch 中 `await compensation.compensate()` → 调 `refundCredits` 退还(内部 `settled` 标志保证最多退一次)。
 
--- 支付和订阅
-payment (id, userId, providerPaymentId, amountCents, status, creditsGranted, ...)
-subscription (id, userId, providerSubId, planKey, status, currentPeriodEnd, ...)
-creditLedger (id, userId, delta, reason, paymentId, createdAt)
-subscriptionCreditSchedule (id, subscriptionId, nextGrantAt, grantsRemaining, ...)
+新增/修改付费 AI 动作时**必须保留这个先扣费-失败补偿的模式**,否则会出现"扣了钱没产出"。
 
--- AI 功能
-chatSession (id, userId, model, totalCreditsUsed, ...)
-chatMessage (id, sessionId, role, content, creditsUsed, ...)
-generationHistory (id, userId, type, prompt, resultUrl, status, ...)
+### 支付与订阅 (Creem)
 
--- 其他
-passwordResetToken (id, userId, token, expiresAt)
-newsletterSubscription (id, email, status, ...)
-```
+**文件**:`lib/payments/creem.ts`、`app/api/payments/creem/checkout/route.ts`、`app/api/payments/creem/webhook/route.ts`、`constants/billing.ts`、`lib/billing/subscription.ts`
 
-完整 Schema 定义: `lib/db/schema.ts`
+- **计划/积分包是唯一真相源**:`constants/billing.ts` 定义 `subscriptionPlans`(`starter_monthly` $29/1000、`starter_yearly` $290/12000、`pro_monthly` $99/10000、`pro_yearly` $990/120000)与 `oneTimePacks`(`pack_200` $5/200),含各自 `creemPriceId`。**绝不要凭空造 plan key**。
+- **Checkout**:`POST /api/payments/creem/checkout` 取 session userId → 查 billing 配置拿 Creem 价格 ID → `createCheckoutSession()`。`CREEM_SIMULATE="true"` 时跳过真实支付,重定向到 `redirect-placeholder`(本地/测试用)。
+- **Webhook**(`/api/payments/creem/webhook`)流程:`verifyWebhookSignature`(HMAC-SHA256 + timing-safe)→ 解析事件(`checkout.completed`/`subscription.paid`/`subscription.active`)→ **幂等检查**(`payment.providerPaymentId` 唯一)→ 计算积分(一次性=`pack.credits`;订阅=`computeInitialGrant` 算首发)→ 事务内写 `payment`、upsert `subscription`、增 `user.credits` + 写 ledger、更新 `user.planKey`、`resetSubscriptionSchedule`/`deleteSubscriptionSchedule` → 发购买确认邮件(失败不阻塞)。
+- **年付分期发放**:年付计划不一次发全部,`constants/billing.ts` 里 `grantSchedule.mode = "installments"` 把积分拆成每月一笔。`subscription_credit_schedule` 表记录 `creditsPerGrant` / `grantsRemaining` / `totalCreditsRemaining` / `nextGrantAt`。
+- **Cron 发放**:`GET|POST /api/cron/subscription-grants` 调 `processDueSchedules()`,用 `WHERE nextGrantAt <= NOW() AND grantsRemaining > 0 ... FOR UPDATE SKIP LOCKED` 取到期记录逐笔发放,`catchUp` 参数支持补发积压。**鉴权二选一**:Bearer `CRON_SECRET`,或 Basic Auth(`CRON_JOBS_USERNAME` + `CRON_JOBS_PASSWORD`)。两者都没配则返回 500。
 
-## 国际化 (i18n)
+> 改订阅逻辑时必须让这 5 处保持一致:`user.planKey`、`payment`、`subscription`、`credit_ledger`、`subscription_credit_schedule`。注意:`admin/users/[userId]/subscription` 端点目前**只改 `user.planKey`**,不是完整的订阅迁移,别误以为够用。
 
-- 框架: `next-intl`
-- 支持语言: 英文 (`en`), 中文 (`zh`)
-- 翻译文件: `messages/en.json`, `messages/zh.json`, `messages/seo.en.json`, `messages/seo.zh.json`
-- 路由格式: 默认语言采用 `as-needed`，因此常见路径是 `/docs`、`/pricing`、`/login`，中文为 `/zh/docs`、`/zh/pricing`、`/zh/login`
-- 路由拦截: `proxy.ts`
+### AI 集成(火山引擎)
 
-**添加新语言**:
-1. 复制 `messages/en.json` / `messages/seo.en.json` 为新的语言版本
-2. 翻译所有 JSON 文案
-3. 更新 `i18n.config.ts`、`proxy.ts` 和 docs i18n 配置
+**封装**:`lib/volcano-engine/`(`index.ts` 导出统一 `volcanoEngine` 对象;`config.ts` 写死模型与 `getHeaders`;`chat.ts`/`image.ts`/`video.ts`/`types.ts`)。模型常量在 `config.ts`:
+- 对话 `doubao-1-5-thinking-pro-250415` · 图生图 `doubao-seededit-3-0-i2i-250628` · 视频 `doubao-seedance-1-0-pro-250528`
 
-## 文档系统
+各路由的统一套路:`getActiveSessionUser` 鉴权 → `canUserAfford` 预检 → 扣费 → `createCreditCompensation` → 调 provider → 成功 `settle()` / 失败 `compensate()`,产出记录入库。
+- **对话**:`/api/chat`(非流式)与 `/api/chat/stream`(SSE 流式);用 `lib/chat-session.ts` 的 `getOrCreateOwnedChatSession`,消息存 `chat_session`/`chat_message`。
+- **图像**:`/api/image/generate` 目前是**图生图**,`prompt` 与 `imageUrl` 都必填;结果存 `generation_history`。
+- **视频**:**异步**。`/api/video/generate` 提交后返回 `taskId`(文生视频或图生视频),前端轮询 `/api/video/status?taskId=...&historyId=...` 查状态(provider 状态被 `normalizeStatus` 归一为 pending/processing/completed/failed,超 5 分钟判超时)。
+- provider 产出会经 `lib/r2-storage.ts`(`uploadImageFromUrl`)镜像到 R2;**镜像失败时回退到 provider 原始 URL** 而非硬失败 —— 改这里要小心,demo/测试依赖这种优雅降级。
 
-- 文档站点由 Fumadocs 驱动，入口为 `/docs`（英文）和 `/zh/docs`（中文）
-- MDX 源文件放在 `content/docs/`
-- `lib/source.ts` 读取 `fumadocs-mdx` 生成的 `.source/*`
-- `public/fumadocs-style.css` 是通过 `pnpm run sync:fumadocs-style` 生成的派生文件，不要手写编辑
+### 国际化 (i18n)
 
-## 路由权限控制
+- 配置中枢 `i18n.config.ts`:`locales = ['en','zh']`,`defaultLocale = 'en'`,`localePrefix = 'as-needed'`。
+- 因为 `as-needed`,默认语言路径不带前缀:`/pricing`、`/docs`、`/login`;中文为 `/zh/pricing` 等。
+- 路由拦截用 **`proxy.ts`**(Next.js 16 把 `middleware` 约定重命名为 `proxy`;本仓库**没有** `middleware.ts`),内部 `createMiddleware`(next-intl)。
+- 服务端消息加载在 `lib/i18n.ts`,合并 `messages/<locale>.json`(UI 文案)与 `messages/seo.<locale>.json`(SEO)。
+- **改用户可见文案时,en 与 zh 都要更新;改 SEO 文案时 `seo.en.json` 与 `seo.zh.json` 都要更新。**
 
-- **公开路由**: `(marketing)`, `(auth)`, `demo`
-- **受保护路由**: `(protected)` - 需要登录,通过 `SessionGuard` 组件保护
-- **管理员路由**: `(admin)` - 需要 `role='admin'`,通过 `features/admin/components/admin-guard.tsx` 保护
+### 文档站 (Fumadocs)
 
-## 安全机制
+- 源文件 `content/docs/**/*.mdx`(中英文按 `*.mdx` / `*.zh.mdx` 配对,目录有 `meta.json` 控制导航)。
+- `source.config.ts` 配置目录;`lib/source.ts` 读取 `fumadocs-mdx` 生成的 `.source/*`;`lib/docs-i18n.ts` / `lib/docs-ui.ts` / `lib/docs-page-tree.ts` 负责多语言与页面树。
+- 渲染入口 `app/[locale]/docs/`,线上路径 `/docs`(英)、`/zh/docs`(中)。
 
-1. **Webhook 签名验证**: Creem webhook 通过 HMAC-SHA256 验证 (`lib/payments/creem.ts:76-110`)
-2. **支付幂等性**: 通过 `providerPaymentId` 防止重复处理
-3. **Cron 端点保护**: 通过 `CRON_SECRET` 或 Basic Auth 验证
-4. **用户封禁**: 支持临时/永久封禁 (`user.banned`, `banReason`, `banExpires`)
-5. **SQL 注入防护**: 使用 Drizzle ORM 参数化查询
+## 数据库(核心表,见 `lib/db/schema.ts`)
 
-## 部署清单
+Drizzle 变量名 → 实际 SQL 表名:`user`、`session`、`account`、`verification`、`payment`、`subscription`、`creditLedger`→`credit_ledger`、`subscriptionCreditSchedule`→`subscription_credit_schedule`、`chatSession`→`chat_session`、`chatMessage`→`chat_message`、`generationHistory`→`generation_history`、`passwordResetToken`→`password_reset_token`、`newsletterSubscription`→`newsletter_subscription`。
 
-### 1. 环境准备
-- [ ] PostgreSQL 数据库 (推荐 Supabase/Neon/Vercel Postgres)
-- [ ] 火山引擎 API Key (https://console.volcengine.com/ark)
-- [ ] Creem 账号和 API Key (https://creem.io)
-- [ ] Resend API Key (https://resend.com)
-- [ ] (可选) Google OAuth 凭据
-- [ ] (可选) S3 存储配置
+幂等/索引要点:`payment.providerPaymentId`、`subscription.providerSubId` 唯一;`subscription_credit_schedule.nextGrantAt` 建有索引供 cron 查询。
 
-### 2. 数据库迁移
-```bash
-pnpm db:push  # 首次部署
-# 或
-pnpm db:migrate  # 使用迁移文件
-```
+## 生成文件 / 派生资源(不要手改)
 
-### 3. 配置 Creem Webhook
-在 Creem Dashboard 中设置 Webhook URL:
-```
-https://your-domain.com/api/payments/creem/webhook
-```
-监听事件: `checkout.completed`, `subscription.paid`, `subscription.active`
+- `lib/blog-manifest.generated.ts` —— 由 `generate:blog-manifest` 生成
+- `public/fumadocs-style.css` —— 由 `sync:fumadocs-style` 从 `fumadocs-ui` 同步(Fumadocs 用 Tailwind v4 语法,故走 `<link>` 注入以避免与本项目 Tailwind v3/PostCSS 冲突)
+- `.source/*` —— 由 `fumadocs-mdx` 生成
+- `public/starter` —— 已本地化的 demo 资源;`.asset-sources/starter-demo` 为其源素材。**不要改回外部第三方运行时 URL**。
 
-### 4. 配置 Cron Job (用于年付积分发放)
-在 Vercel/服务器上设置定时任务,每小时调用:
-```bash
-curl -H "Authorization: Bearer YOUR_CRON_SECRET" \
-  https://your-domain.com/api/cron/subscription-grants
-```
+## 环境变量
 
-### 5. 创建管理员账户
-```bash
-pnpm admin:setup
-```
+以 `.env.example` 为准。关键分组:
+- 数据库 `DATABASE_URL`
+- Auth `BETTER_AUTH_SECRET`(≥32 字符)、`BETTER_AUTH_URL`、可选 `BETTER_AUTH_TRUSTED_ORIGINS`
+- 可选 Google OAuth `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET`(**两者都配齐**才启用,登录/注册页的 Google 按钮也据此显示)
+- AI `VOLCANO_ENGINE_API_KEY`、`VOLCANO_ENGINE_API_URL`
+- 支付 `CREEM_API_KEY`、`CREEM_WEBHOOK_SECRET`、可选 `CREEM_API_BASE`、`CREEM_SIMULATE`
+- 邮件 `RESEND_API_KEY`、`RESEND_FROM_EMAIL`
+- Cron `CRON_SECRET` 或 `CRON_JOBS_USERNAME` + `CRON_JOBS_PASSWORD`
+- 应用 URL `NEXT_PUBLIC_APP_URL`;管理员脚本 `ADMIN_EMAIL`
+- 可选:`STORAGE_*`(S3/R2)、`NEXT_PUBLIC_POSTHOG_KEY`、`NEXT_PUBLIC_GOOGLE_ANALYTICS_ID`、`NEXT_PUBLIC_CLARITY_PROJECT_ID`
 
-### 6. 环境变量检查
-确保生产环境的 `BETTER_AUTH_URL`, `NEXT_PUBLIC_APP_URL`, `RESEND_FROM_EMAIL` 使用正确的域名。
+## 已知坑位
 
-## 自定义指南
+- 部分读取 `request.url`/headers/cookies/auth 的 API 路由在 `pnpm build` 时会有 "dynamic server usage" 警告(如 `/api/auth/verify-email`、`/api/newsletter/unsubscribe`、`/api/user/credits/history` 等)。改动这类路由时考虑显式标记 dynamic。
+- `app/api/upload/simple/route.ts` 是 demo 用途,不是生产上传主路径(主路径 `app/api/upload/image/route.ts`)。存储未配置时上传路由可能返回 data URL、镜像可能回退 provider URL —— 这是有意的降级。
+- 管理后台改动属高风险:改余额 ≠ 改 ledger;改 plan 标签 ≠ 改订阅状态。保持账本路径与状态一致。
+- Turbopack 在部分 macOS 上偏重,可改用 `pnpm dev:webpack`。
 
-### 修改定价计划
-编辑 `constants/billing.ts`:
-```typescript
-starter_monthly: {
-  priceCents: 2900,        // 修改价格
-  creditsPerCycle: 1000,   // 修改积分数
-  creemPriceId: "prod_xxx" // 对应 Creem 的产品 ID
-}
-```
+## 测试约定
 
-### 修改积分消耗规则
-编辑相应文件:
-- 对话: `lib/credits.ts:5` (CHAT_CREDIT_COST)
-- 图像: `app/api/image/route.ts`
-- 视频: `app/api/video/generate/route.ts`
-
-### 替换 AI 提供商
-如需切换到 OpenAI/Anthropic:
-1. 替换 `lib/volcano-engine/` 中的 API 调用逻辑
-2. 更新环境变量
-3. 调整模型配置
-
-### 添加新的支付网关
-参考 `lib/payments/creem.ts` 的结构,创建新的支付提供商集成。
-
-## 故障排查
-
-### Webhook 未触发
-1. 检查 Creem Dashboard 中 Webhook URL 是否正确
-2. 查看 Webhook 日志,确认签名验证通过
-3. 检查 `CREEM_WEBHOOK_SECRET` 是否匹配
-
-### 年付积分未自动发放
-1. 检查 Cron Job 是否正常运行
-2. 查看 `subscriptionCreditSchedule` 表中的 `nextGrantAt` 时间
-3. 检查 Cron 端点的认证配置
-
-### 用户无法访问管理后台
-1. 确认 `user.role = 'admin'`
-2. 检查 `features/admin/components/admin-guard.tsx` 逻辑
-
-## 性能优化建议
-
-1. **积分查询**: 高频操作,考虑使用 Redis 缓存 `user.credits`
-2. **AI API 调用**: 添加速率限制 (Rate Limiting)
-3. **数据库索引**: 已在关键字段添加索引 (如 `subscriptionCreditSchedule.nextGrantAt`)
-4. **图片/视频**: 使用 CDN 分发生成的媒体文件
-
-## 相关文档
-
-- [内置部署文档](content/docs/deployment.mdx)
-- [内置自定义文档](content/docs/customization.mdx)
-- [Better Auth 文档](https://better-auth.com/)
-- [Drizzle ORM 文档](https://orm.drizzle.team/)
-- [Next.js 文档](https://nextjs.org/docs)
-- [火山引擎 API 文档](https://www.volcengine.com/docs/82379)
+- 测试位于 `tests/components/*`(RTL)、`tests/constants/*`、`tests/lib/*`。配置见 `vitest.config.ts`(jsdom、`@` 别名指向根、globals、`vitest.setup.ts` 注入 jest-dom)。
+- 改 billing / credits / auth / session / email / 工具函数等逻辑时,在 `tests/lib` 增补或更新测试。
