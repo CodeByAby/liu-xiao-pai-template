@@ -1,0 +1,58 @@
+---
+title: 对话功能
+description: 实时 AI 对话与流式响应。
+---
+
+## 概述
+
+对话功能通过 Server-Sent Events（SSE）提供实时 AI 对话的流式响应。
+
+## 端点
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/api/chat` | POST | 非流式对话 |
+| `/api/chat/stream` | POST | 流式对话（SSE） |
+
+## 工作原理
+
+1. 用户从聊天 UI 发送消息
+2. 服务端验证会话并检查积分余额
+3. 扣除积分（每条消息 10 积分）
+4. 请求发送到火山引擎（豆包模型）
+5. 响应通过 SSE 流式返回客户端
+6. 消息保存到 `chatMessage` 表
+
+## 数据模型
+
+### 对话会话（`chatSession`）
+
+每次对话是一个会话：
+
+- `id` — 会话标识
+- `userId` — 所有者
+- `model` — 使用的 AI 模型
+- `totalCreditsUsed` — 累计消耗积分
+
+### 对话消息（`chatMessage`）
+
+会话中的单条消息：
+
+- `sessionId` — 所属会话
+- `role` — `user` 或 `assistant`
+- `content` — 消息内容
+- `creditsUsed` — 该条消息消耗的积分
+
+## 配置
+
+模型参数可在 API 路由中调整：
+
+```typescript
+const response = await chat({
+  model: 'doubao-1-5-thinking-pro-250415',
+  messages: [...],
+  temperature: 0.7,
+  top_p: 0.9,
+  max_tokens: 2048,
+});
+```

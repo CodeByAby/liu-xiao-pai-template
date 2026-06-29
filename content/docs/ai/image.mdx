@@ -1,0 +1,54 @@
+---
+title: Image Generation
+description: AI image generation with reference images.
+---
+
+## Overview
+
+Image generation uses the Doubao image-to-image model, requiring a reference image as input.
+
+## Endpoint
+
+```
+POST /api/image/generate
+```
+
+## Request
+
+```json
+{
+  "prompt": "A futuristic city skyline",
+  "referenceImage": "base64-encoded-image-or-url",
+  "size": "1K"
+}
+```
+
+### Supported Sizes
+
+- `adaptive` — Auto-detect from reference
+- `1K` — 1024px
+- `2K` — 2048px
+- `4K` — 4096px
+
+## Response Flow
+
+1. Validate user session and credits
+2. Deduct 20 credits
+3. Send request to Volcano Engine
+4. Upload result to R2 storage (if configured)
+5. Save to `generationHistory` table
+6. Return image URL
+
+## Storage
+
+Generated images are uploaded to S3-compatible storage (Cloudflare R2) if configured. If storage is not available, the original Volcano Engine URL is used as a fallback.
+
+## History
+
+All generations are tracked in the `generationHistory` table:
+
+- `type` — `image`
+- `prompt` — User's prompt
+- `resultUrl` — URL of generated image
+- `status` — `completed` or `failed`
+- `creditsUsed` — Credits charged

@@ -1,0 +1,58 @@
+---
+title: Chat
+description: Real-time AI chat with streaming responses.
+---
+
+## Overview
+
+The chat feature provides real-time AI conversations using Server-Sent Events (SSE) for streaming responses.
+
+## Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/chat` | POST | Non-streaming chat |
+| `/api/chat/stream` | POST | Streaming chat (SSE) |
+
+## How It Works
+
+1. User sends a message from the chat UI
+2. Server validates session and checks credit balance
+3. Credits are deducted (10 credits per message)
+4. Request is sent to Volcano Engine (Doubao model)
+5. Response streams back via SSE to the client
+6. Message is saved to `chatMessage` table
+
+## Data Model
+
+### Chat Sessions (`chatSession`)
+
+Each conversation is a session:
+
+- `id` — Session identifier
+- `userId` — Owner
+- `model` — AI model used
+- `totalCreditsUsed` — Running total of credits spent
+
+### Chat Messages (`chatMessage`)
+
+Individual messages within a session:
+
+- `sessionId` — Parent session
+- `role` — `user` or `assistant`
+- `content` — Message text
+- `creditsUsed` — Credits consumed for this message
+
+## Configuration
+
+Model parameters can be adjusted in the API route:
+
+```typescript
+const response = await chat({
+  model: 'doubao-1-5-thinking-pro-250415',
+  messages: [...],
+  temperature: 0.7,
+  top_p: 0.9,
+  max_tokens: 2048,
+});
+```

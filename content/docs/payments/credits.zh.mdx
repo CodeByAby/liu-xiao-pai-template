@@ -1,0 +1,80 @@
+---
+title: 积分系统
+description: 基于积分的计费系统工作原理。
+---
+
+## 架构
+
+积分系统使用**双写模式**进行余额跟踪：
+
+- `user.credits` — 快速访问的当前余额（用于快速读取）
+- `creditLedger` — 不可变的积分变动审计记录
+
+两者始终在同一个数据库事务中更新，确保一致性。
+
+## 核心 API
+
+所有函数在 `lib/credits.ts` 中：
+
+```typescript
+// 查询用户余额
+const credits = await getUserCredits(userId);
+
+// 检查用户是否负担得起
+const canAfford = await canUserAfford(userId, 10);
+
+// 扣除积分（事务性）
+await deductCredits(userId, 10, 'chat_usage');
+
+// 退还积分（如 API 失败时）
+await refundCredits(userId, 10, 'chat_refund');
+```
+
+## 积分消耗
+
+| 操作 | 消耗 | 配置位置 |
+|------|------|---------|
+| 对话消息 | 10 积分 | `lib/credits.ts`（`CHAT_CREDIT_COST`） |
+| 图像生成 | 20 积分 | `app/api/image/generate/route.ts` |
+| 视频生成 | 50 积分 | `app/api/video/generate/route.ts` |
+
+## 积分来源
+
+| 来源 | 触发条件 | 数量 |
+|------|---------|------|
+| 注册奖励 | 新用户注册 | 300 积分 |
+| 订阅（按月） | Webhook / 定时任务 | 按计划配置 |
+| 一次性积分包 | Webhook | 按积分包配置 |
+| 管理员调整 | 通过管理后台手动操作 | 自定义 |
+
+## 账本原因
+
+每条 `creditLedger` 记录都有 `reason` 字段：
+
+- `registration_bonus` — 注册赠送
+- `chat_usage` — 对话扣除
+- `image_usage` — 图像生成扣除
+- `video_usage` — 视频生成扣除
+- `subscription_cycle` — 订阅月度发放
+- `one_time_pack` — 积分包购买
+- `admin_adjustment` — 管理员手动调整
+
+## 积分补偿
+
+AI API 调用使用**先扣除、失败后退还**模式：
+
+```typescript
+// 1. 扣除积分
+await deductCredits(userId, cost, 'chat_usage');
+
+try {
+  // 2. 调用 AI API
+  const result = await callAI(...);
+} catch (error) {
+  // 3. 失败时退还
+  await refundCredits(userId, cost, 'chat_refund');
+  throw error;
+}
+```
+
+确保 AI 服务商故障时用户不会损失积分。

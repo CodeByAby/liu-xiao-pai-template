@@ -1,0 +1,54 @@
+---
+title: AI Features Overview
+description: Chat, image, and video generation powered by Volcano Engine.
+---
+
+## Overview
+
+Sistine Starter integrates with [Volcano Engine](https://www.volcengine.com/) (ByteDance's Doubao API) for AI capabilities:
+
+| Feature | Model | Endpoint |
+|---------|-------|----------|
+| Chat | `doubao-1-5-thinking-pro-250415` | `/api/chat/stream` |
+| Image Generation | `doubao-seededit-3-0-i2i-250628` | `/api/image/generate` |
+| Video Generation | `doubao-seedance-1-0-pro-250528` | `/api/video/generate` |
+
+## Configuration
+
+All AI integrations require a Volcano Engine API key:
+
+```ini
+VOLCANO_ENGINE_API_KEY="your-api-key"
+VOLCANO_ENGINE_API_URL="https://ark.cn-beijing.volces.com/api/v3"
+```
+
+## Architecture
+
+AI wrappers live in `lib/volcano-engine/`:
+
+```
+lib/volcano-engine/
+├── config.ts    # API configuration
+├── chat.ts      # Chat completion + streaming
+├── image.ts     # Image generation
+├── video.ts     # Video generation (async)
+└── types.ts     # TypeScript interfaces
+```
+
+## Credit Integration
+
+Every AI operation follows the **deduct-first, refund-on-failure** pattern:
+
+1. Check if user has enough credits
+2. Deduct credits from balance
+3. Call AI API
+4. If API fails, refund credits automatically
+
+## Replacing the AI Provider
+
+To switch from Volcano Engine to OpenAI, Anthropic, or another provider:
+
+1. Replace the API calls in `lib/volcano-engine/`
+2. Update environment variables
+3. Adjust model configuration
+4. Keep the same credit deduction pattern

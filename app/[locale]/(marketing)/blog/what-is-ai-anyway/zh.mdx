@@ -1,0 +1,89 @@
+import { BlogLayout } from "@/components/blog-layout";
+import Thumbnail from "./thumbnail.jpeg";
+
+export const blog = {
+  author: { name: "Sistine Team", src: "/avatar.jpeg" },
+  date: "2020-07-14",
+  title: "什么是人工智能？",
+  description:
+    "探索正在彻底改变各行各业的最新人工智能工具和应用。从图像生成到自然语言处理，人工智能正在改变我们思考和与世界互动的方式。",
+  image:
+    "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+};
+
+export const metadata = {
+  title: blog.title,
+  description: blog.description,
+  openGraph: {
+    images: [blog.image],
+  },
+};
+
+export default (props) => <BlogLayout blog={blog} {...props} />;
+
+## 什么是人工智能
+
+人工智能（AI）是计算机科学的一个分支，致力于创建能够模拟人类智能的系统。这些系统能够学习、推理、解决问题，并在某些情况下表现出创造力。
+
+从机器学习到深度学习，从自然语言处理到计算机视觉，AI正在以前所未有的速度改变我们的世界。无论是在医疗诊断、金融分析还是日常生活中的智能助手，AI都在发挥着越来越重要的作用。
+
+```jsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { BlogWithSlug } from "@/lib/blog";
+
+export function BlogLayout({
+  blog,
+  children,
+}: {
+  blog: BlogWithSlug,
+  children: React.ReactNode,
+}) {
+  let router = useRouter();
+  return (
+    <div className="mt-16 lg:mt-32">
+      <div className="xl:relative">
+        <div className="mx-auto max-w-2xl">
+          <article>
+            <header className="flex flex-col">
+              <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+                {blog.title}
+              </h1>
+            </header>
+          </article>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+## AI的核心技术
+
+### 机器学习
+机器学习是AI的核心，它使计算机能够从数据中学习，而无需明确编程。通过分析大量数据，机器学习算法可以识别模式并做出预测。
+
+### 深度学习
+深度学习是机器学习的一个子集，使用多层神经网络来处理复杂的数据。这项技术在图像识别、语音识别和自然语言处理方面取得了突破性进展。
+
+### 自然语言处理
+NLP使计算机能够理解、解释和生成人类语言。从聊天机器人到语言翻译，NLP正在改变我们与机器交互的方式。
+
+## AI的应用领域
+
+1. **医疗保健**：AI协助医生进行诊断、药物发现和个性化治疗方案
+2. **金融服务**：风险评估、欺诈检测和算法交易
+3. **交通运输**：自动驾驶汽车和智能交通管理系统
+4. **教育**：个性化学习和智能辅导系统
+5. **娱乐**：内容推荐和游戏AI
+
+## 未来展望
+
+随着技术的不断进步，AI将继续在更多领域发挥重要作用。从解决气候变化到探索太空，AI正在帮助我们应对人类面临的最大挑战。
+
+然而，我们也需要考虑AI的伦理问题，确保这项技术的发展能够造福全人类，而不是加剧不平等或造成伤害。
+
+## 结语
+
+人工智能不再是科幻小说中的概念，它已经成为我们日常生活的一部分。理解AI的基本原理和应用，将帮助我们更好地利用这项技术，创造一个更美好的未来。

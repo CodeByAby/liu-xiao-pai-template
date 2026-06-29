@@ -1,0 +1,60 @@
+import { BlogLayout } from "@/components/blog-layout";
+import Thumbnail from "./thumbnail.jpeg";
+
+export const blog = {
+  author: { name: "Sistine Team", src: "/avatar.jpeg" },
+  date: "2023-07-14",
+  title: "用AI做的酷炫事情",
+  description:
+    "探索正在革新各行各业的最新AI工具和应用。从图像生成到自然语言处理，AI正在改变我们思考和与世界互动的方式。",
+  image:
+    "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+};
+
+export const metadata = {
+  title: blog.title,
+  description: blog.description,
+  openGraph: {
+    images: [blog.image],
+  },
+};
+
+export default (props) => <BlogLayout blog={blog} {...props} />;
+
+## AI能做的酷炫事情
+
+人工智能已经不再是科幻小说中的概念。今天，我们可以用AI做许多令人惊叹的事情。让我们一起探索一些最酷的AI应用！
+
+### 1. 创意生成
+
+#### 图像生成
+使用DALL-E、Midjourney或Stable Diffusion，你可以通过文字描述创建令人惊叹的艺术作品。只需输入"赛博朋克风格的未来城市"，AI就能为你生成独特的图像。
+
+#### 音乐创作
+AI可以帮你创作音乐！工具如Mubert和AIVA能够生成各种风格的原创音乐，从古典到电子音乐应有尽有。
+
+### 2. 智能助手
+
+#### 代码编写
+GitHub Copilot和ChatGPT可以帮助程序员更快地编写代码，提供智能建议和自动完成功能。
+
+#### 内容创作
+AI可以帮助你写博客、创建社交媒体内容，甚至写小说。它能理解上下文，生成连贯且有创意的文本。
+
+### 3. 数据分析
+
+AI可以在几秒钟内分析海量数据，发现人类可能忽略的模式和洞察。这在商业决策、医学研究和科学发现中特别有用。
+
+### 4. 语言翻译
+
+现代AI翻译工具不仅能翻译文字，还能理解语境和文化细微差别，提供更准确自然的翻译。
+
+### 5. 个性化推荐
+
+从Netflix的电影推荐到Spotify的音乐推荐，AI正在帮助我们发现更多符合个人品味的内容。
+
+## 未来展望
+
+随着AI技术的不断进步，我们将看到更多令人兴奋的应用。虚拟现实、增强现实与AI的结合将创造全新的体验。AI将继续改变我们的生活方式，让不可能变为可能。
+
+开始探索AI的世界吧，你会发现无限可能！

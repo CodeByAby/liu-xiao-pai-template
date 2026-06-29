@@ -1,0 +1,57 @@
+---
+title: Webhooks
+description: Creem Webhook 处理机制。
+---
+
+## 端点
+
+```
+POST /api/payments/creem/webhook
+```
+
+## 安全机制
+
+### 签名验证
+
+每个 webhook 使用 HMAC-SHA256 验证：
+
+```typescript
+const isValid = verifyWebhookSignature(body, signature, CREEM_WEBHOOK_SECRET);
+```
+
+签名在 `creem-signature` 请求头中。使用时序安全比较防止时序攻击。
+
+### 幂等性
+
+通过检查 `payment` 表中的 `providerPaymentId` 处理重复 webhook。如果已存在相同 ID 的支付记录，webhook 被确认但不会重复处理。
+
+## 支持的事件
+
+| 事件 | 操作 |
+|------|------|
+| `checkout.completed` | 创建支付记录、发放积分、发送邮件 |
+| `subscription.paid` | 发放月度积分、更新订阅 |
+| `subscription.active` | 激活订阅记录 |
+
+## 设置
+
+在 Creem Dashboard 中设置 webhook URL：
+
+```
+https://your-domain.com/api/payments/creem/webhook
+```
+
+在 `.env` 中配置 webhook 密钥：
+
+```ini
+CREEM_WEBHOOK_SECRET="whsec_your_secret"
+```
+
+## 调试
+
+如果 webhook 没有触发：
+
+1. 检查 Creem Dashboard 的 webhook 投递日志
+2. 验证 `CREEM_WEBHOOK_SECRET` 与 Creem 设置匹配
+3. 确保端点可公开访问（不在认证保护下）
+4. 检查服务器日志中的签名验证错误

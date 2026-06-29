@@ -1,0 +1,54 @@
+---
+title: AI 功能概览
+description: 基于火山引擎的对话、图像和视频生成。
+---
+
+## 概述
+
+Sistine Starter 集成了[火山引擎](https://www.volcengine.com/)（字节跳动豆包 API）提供 AI 能力：
+
+| 功能 | 模型 | 端点 |
+|------|------|------|
+| 对话 | `doubao-1-5-thinking-pro-250415` | `/api/chat/stream` |
+| 图像生成 | `doubao-seededit-3-0-i2i-250628` | `/api/image/generate` |
+| 视频生成 | `doubao-seedance-1-0-pro-250528` | `/api/video/generate` |
+
+## 配置
+
+所有 AI 集成需要火山引擎 API Key：
+
+```ini
+VOLCANO_ENGINE_API_KEY="your-api-key"
+VOLCANO_ENGINE_API_URL="https://ark.cn-beijing.volces.com/api/v3"
+```
+
+## 架构
+
+AI 封装在 `lib/volcano-engine/` 中：
+
+```
+lib/volcano-engine/
+├── config.ts    # API 配置
+├── chat.ts      # 对话补全 + 流式响应
+├── image.ts     # 图像生成
+├── video.ts     # 视频生成（异步）
+└── types.ts     # TypeScript 类型定义
+```
+
+## 积分集成
+
+每个 AI 操作遵循**先扣除、失败后退还**模式：
+
+1. 检查用户是否有足够积分
+2. 从余额中扣除积分
+3. 调用 AI API
+4. 如果 API 失败，自动退还积分
+
+## 替换 AI 提供商
+
+如需从火山引擎切换到 OpenAI、Anthropic 或其他提供商：
+
+1. 替换 `lib/volcano-engine/` 中的 API 调用
+2. 更新环境变量
+3. 调整模型配置
+4. 保持相同的积分扣除模式

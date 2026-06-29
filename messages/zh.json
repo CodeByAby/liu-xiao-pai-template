@@ -1,0 +1,1008 @@
+{
+  "common": {
+    "brand": {
+      "name": "SISTINE",
+      "tagline": "Sistine AI & Sistine Labs",
+      "copyright": "版权所有 © 2025 Sistine AI & Sistine Labs",
+      "allRightsReserved": "保留所有权利"
+    },
+    "actions": {
+      "signIn": "登录",
+      "signUp": "注册",
+      "signOut": "退出登录",
+      "getStarted": "开始使用",
+      "startFree": "免费开始",
+      "startTrial": "开始试用",
+      "contactSales": "联系销售",
+      "learnMore": "了解更多",
+      "viewAll": "查看全部",
+      "submit": "提交",
+      "cancel": "取消",
+      "save": "保存",
+      "delete": "删除",
+      "edit": "编辑",
+      "update": "更新",
+      "continue": "继续",
+      "back": "返回",
+      "next": "下一步"
+    },
+    "status": {
+      "loading": "加载中...",
+      "verified": "已验证",
+      "pending": "待处理",
+      "active": "已激活",
+      "inactive": "未激活"
+    }
+  },
+  "navigation": {
+    "main": {
+      "pricing": "定价",
+      "blog": "博客",
+      "contact": "联系我们",
+      "docs": "文档",
+      "dashboard": "仪表盘",
+      "demo": "Demo",
+      "chat": "对话",
+      "image": "图片",
+      "video": "视频",
+      "credits": "积分管理",
+      "profile": "个人资料",
+      "settings": "设置"
+    },
+    "footer": {
+      "legal": {
+        "terms": "服务条款",
+        "privacy": "隐私政策",
+        "cookies": "Cookie 政策",
+        "refund": "退款政策"
+      },
+      "social": {
+        "twitter": "Twitter",
+        "linkedin": "领英",
+        "github": "GitHub"
+      }
+    }
+  },
+  "hero": {
+    "badge": "⚡ 专为 Vibe Coding 打造的首款入门套件",
+    "title": "通过 Vibe Coding 将您的 AI SaaS 产品投入生产",
+    "description": "不懂编程？没问题。Sistine 加上 AI 编程助手，让您的 SaaS 创意在数小时内上线。您只需描述您的想法，即可交付用户真正喜爱的产品。",
+    "cta": {
+      "primary": "查看文档",
+      "secondary": "获取代码"
+    },
+    "modal": {
+      "eyebrow": "源码获取",
+      "title": "请在课程社区获取源码",
+      "description": "Sistine Starter 的完整源码、更新说明和配套资料都放在课程社区里统一发放。",
+      "instruction": "如果你已经加入课程，点击下方链接即可在新窗口打开课程社区，获取代码与相关资料。",
+      "linkLabel": "前往课程社区",
+      "linkHint": "课程社区：https://scys.com/deepsea/2001/course",
+      "close": "关闭"
+    }
+  },
+  "features": {
+    "title": "Vibe Coding 成功所需的一切功能",
+    "subtitle": "告别在样板代码上浪费时间。专注于描述您的独特功能，Sistine 会为您处理好底层基础。借助 AI 加速产品交付。",
+    "items": {
+      "aiOptimized": {
+        "title": "为 AI 辅助开发而生",
+        "description": "为 Cursor、Windsurf 和 Claude Code 等工具完美结构化。每个文件、每个组件都经过优化，便于 AI 理解和修改。"
+      },
+      "zeroPipeline": {
+        "title": "从零到生产的完整流程",
+        "description": "身份验证、支付、数据库、部署——一切均已配置完毕。只需向您的 AI 助手发出指令，即可见证您的 SaaS 产品诞生。"
+      },
+      "nonTechnical": {
+        "title": "对非技术背景的创始人友好",
+        "description": "分不清 React 和 Rails？没关系。只要您能清晰地描述您的想法，就能成功交付一款 SaaS 产品。"
+      },
+      "productionGrade": {
+        "title": "从第一天起即达生产级别",
+        "description": "支持真实用户、真实支付、真实规模。基于 Next.js、PostgreSQL 和 Creem 构建——与价值数十亿美元公司使用的技术栈一致。"
+      }
+    }
+  },
+  "pricing": {
+    "title": "定价方案",
+    "subtitle": "简单透明的定价，随您的业务一同扩展",
+    "description": "在真实可购买的订阅方案和一次性点数补充包之间选择。这个页面上的价格直接来自结账使用的账单配置。",
+    "billing": {
+      "monthly": "按月计费",
+      "yearly": "按年计费"
+    },
+    "comparison": {
+      "title": "方案对比",
+      "rows": {
+        "purchaseType": "购买类型",
+        "monthlyPrice": "月付价格",
+        "yearlyPrice": "年付价格",
+        "monthlyCredits": "月付可得点数",
+        "yearlyCredits": "年付可得点数",
+        "delivery": "点数发放方式",
+        "bestFor": "适合人群"
+      },
+      "values": {
+        "subscription": "订阅",
+        "oneTime": "一次性点数包",
+        "notApplicable": "不适用",
+        "creditsPerMonth": "每月 {credits} 点",
+        "creditsPerYear": "每年 {credits} 点",
+        "oneTimeCredits": "一次获得 {credits} 点",
+        "yearlyInstallments": "年付时每月发放 {credits} 点",
+        "instantAfterPayment": "支付成功后立即到账",
+        "bestForStarter": "适合正在验证 AI 产品的 MVP 阶段",
+        "bestForPro": "适合生成频繁、负载更高的生产环境",
+        "bestForCredits": "适合不改订阅方案时临时补充点数"
+      }
+    },
+    "details": {
+      "monthlyCredits": "每月 {credits} 点",
+      "yearlyCredits": "每年 {credits} 点",
+      "subscriptionDelivery": "通过 Creem 按周期续费的订阅方案",
+      "yearlyInstallments": "年付时每月发放 {credits} 点",
+      "oneTimeCredits": "一次支付获得 {credits} 点",
+      "oneTimeDelivery": "一次性结账，点数立即到账"
+    },
+    "tiers": {
+      "starter": {
+        "name": "入门版",
+        "description": "适合验证 AI 产品方向，还不需要高用量的时候。",
+        "cta": "选择入门版",
+        "features": [
+          "可使用聊天、图片和视频生成功能",
+          "月付方案每月获得 1,000 点",
+          "年付方案按月发放 1,000 点",
+          "需要时可以额外购买点数包"
+        ]
+      },
+      "pro": {
+        "name": "专业版",
+        "description": "适合团队协作和更高频率的生成需求。",
+        "cta": "选择专业版",
+        "features": [
+          "可使用聊天、图片和视频生成功能",
+          "月付方案每月获得 10,000 点",
+          "年付方案按月发放 10,000 点",
+          "更适合高频生产环境使用"
+        ]
+      },
+      "credits": {
+        "name": "点数包",
+        "description": "一次性购买的补充点数，可叠加到任何方案上。",
+        "cta": "购买 {credits} 点数",
+        "features": [
+          "支付成功后立即到账",
+          "不会改变您当前的订阅方案",
+          "适合发布前冲刺、短期活动或偶发高峰"
+        ]
+      }
+    }
+  },
+  "testimonials": {
+    "title": "来自 Vibe Coders 的成功故事",
+    "subtitle": "真实开发者与非技术背景创始人分享他们使用 Sistine 和 Vibe Coding 构建 AI SaaS 产品的经验。",
+    "items": [
+      {
+        "name": "Alex Chen",
+        "quote": "我不是开发者，我是营销人员。但我使用 Sistine + Cursor 在 3 天内发布了我的 AI SaaS。现在每月收入 5000 美元。",
+        "designation": "营销经理转型创始人"
+      },
+      {
+        "name": "Jordan Lee",
+        "quote": "我花了多年学习编码。现在我的非技术联合创始人使用 Vibe Coding 发布功能比我还快。这就是未来。",
+        "designation": "技术联合创始人"
+      },
+      {
+        "name": "Alice Johnson",
+        "quote": "从想法到每月 1 万美元收入只用了 2 个月。全靠感觉，无需编码。Sistine 让我能与有资金支持的创业公司竞争。",
+        "designation": "连续创业者"
+      },
+      {
+        "name": "Bob Smith",
+        "quote": "仅在本季度就构建并发布了 3 个不同的 AI SaaS 产品。使用 Sistine 进行 Vibe Coding 是我的秘密武器。",
+        "designation": "独立黑客"
+      },
+      {
+        "name": "Cathy Lee",
+        "quote": "我用普通英语向 Claude Code 描述功能。Sistine 处理其他一切。发布从未如此快速。",
+        "designation": "产品经理"
+      },
+      {
+        "name": "David Wright",
+        "quote": "身份验证、支付和部署都可以直接使用。我专注于独特的功能。我的 SaaS 第一周就盈利了。",
+        "designation": "独立创始人"
+      },
+      {
+        "name": "Eva Green",
+        "quote": "它带来的效率是无与伦比的。这是一个重要的工具，帮助我们削减成本并显著改善了最终产品。",
+        "designation": "运营总监"
+      },
+      {
+        "name": "Frank Moore",
+        "quote": "一个完美融入我们工作流程的强大解决方案。它增强了我们团队的能力，让我们能够处理更复杂的项目。",
+        "designation": "项目经理"
+      },
+      {
+        "name": "Grace Hall",
+        "quote": "它非常直观且易于使用。即使没有技术专业知识的人也可以利用它的强大功能来改善工作流程。",
+        "designation": "市场营销专家"
+      },
+      {
+        "name": "Henry Ford",
+        "quote": "它为我们节省了无数小时。强烈推荐给任何想要提高效率和生产力的人。",
+        "designation": "运营分析师"
+      },
+      {
+        "name": "Ivy Wilson",
+        "quote": "任何专业人士的必备工具。它彻底改变了我们解决问题和决策的方式。",
+        "designation": "商业顾问"
+      },
+      {
+        "name": "Jack Brown",
+        "quote": "结果总是令人印象深刻。这个 AI 不仅帮助我们达到了性能目标，还超越了预期。",
+        "designation": "绩效经理"
+      },
+      {
+        "name": "Kathy Adams",
+        "quote": "它帮助我们实现了曾经被认为不可能的事情。AI 的能力是突破性的，为我们开辟了新的道路。",
+        "designation": "创新负责人"
+      },
+      {
+        "name": "Leo Carter",
+        "quote": "具有真正影响力的变革性技术。它简化了我们的运营，为我们的流程带来了前所未有的效率。",
+        "designation": "技术策略师"
+      },
+      {
+        "name": "Mia Turner",
+        "quote": "简直是革命性的！它与我们现有系统的集成和增强方式简直是奇迹。",
+        "designation": "系统集成师"
+      }
+    ]
+  },
+  "companies": {
+    "title": "使用行业领先技术构建",
+    "subtitle": "基于现代技术栈构建，被全球顶尖团队信赖"
+  },
+  "gridFeatures": {
+    "aiReady": {
+      "title": "AI 就绪架构",
+      "description": "预配置聊天、图像和视频生成工作流，默认接入 Volcano Engine。填好密钥即可开始构建。"
+    },
+    "creem": {
+      "title": "Creem 支付",
+      "description": "内置完整的计费系统，包括订阅、使用量跟踪和客户门户。"
+    },
+    "auth": {
+      "title": "身份认证系统",
+      "description": "Better Auth 支持邮箱密码和 OAuth。会话管理和受保护路由已就绪。"
+    },
+    "deploy": {
+      "title": "一键部署",
+      "description": "即刻部署到 Vercel、Railway 或任何平台。从第一天起即可投入生产。"
+    },
+    "typescript": {
+      "title": "TypeScript + Tailwind",
+      "description": "现代技术栈包括 Next.js 14、TypeScript、Tailwind CSS 和 shadcn/ui 组件。"
+    },
+    "database": {
+      "title": "数据库 + ORM",
+      "description": "PostgreSQL 配合 Drizzle ORM。类型安全的查询和迁移已配置。"
+    },
+    "seo": {
+      "title": "SEO 和营销",
+      "description": "元标签、Open Graph、站点地图和分析。为有机增长准备的一切。"
+    },
+    "vibeCoding": {
+      "title": "Vibe Coding 就绪",
+      "description": "针对 Cursor、Windsurf 和 Claude Code 进行了优化。AI 能理解每个组件。"
+    }
+  },
+  "cta": {
+    "title": "准备好交付您的 AI SaaS 产品了吗？",
+    "description": "加入数百名开发者的行列，他们已经通过 Sistine 和 Vibe Coding 成功发布了自己的 SaaS 产品。",
+    "button": "获取代码"
+  },
+  "auth": {
+    "login": {
+      "title": "登录您的账户",
+      "emailLabel": "邮箱地址",
+      "emailPlaceholder": "hello@johndoe.com",
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "忘记密码？",
+      "noAccount": "还没有账户？",
+      "signUpLink": "注册",
+      "signInButton": "登录",
+      "signingIn": "登录中...",
+      "errors": {
+        "invalidEmail": "请输入有效的邮箱地址",
+        "emailRequired": "请输入邮箱地址",
+        "passwordRequired": "请输入密码",
+        "loginFailed": "登录失败，请重试。",
+        "googleLoginFailed": "Google 登录失败，请重试。"
+      }
+    },
+    "signup": {
+      "title": "注册一个新账户",
+      "nameLabel": "姓名",
+      "namePlaceholder": "张三",
+      "emailLabel": "邮箱地址",
+      "emailPlaceholder": "hello@example.com",
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "••••••••",
+      "hasAccount": "已经有账户了？",
+      "signInLink": "登录",
+      "signUpButton": "注册",
+      "signingUp": "注册中...",
+      "errors": {
+        "nameRequired": "请输入您的姓名",
+        "invalidEmail": "请输入有效的邮箱地址",
+        "emailRequired": "请输入邮箱地址",
+        "passwordRequired": "请输入密码",
+        "signupFailed": "注册失败，请重试。",
+        "googleSignupFailed": "Google 注册失败，请重试。"
+      }
+    },
+    "social": {
+      "googleSignIn": "使用 Google 继续",
+      "or": "或者继续使用"
+    },
+    "checkEmail": {
+      "title": "请查收您的邮件",
+      "description": "我们已向您的邮箱发送了验证链接。请点击链接验证您的账户并开始使用。",
+      "notReceived": "没有收到邮件？",
+      "checkSpam": "检查垃圾邮件文件夹",
+      "checkEmailCorrect": "确认输入的邮箱地址是否正确",
+      "waitAndCheck": "等待几分钟后再次查看",
+      "resendButton": "重新发送验证邮件",
+      "resending": "发送中...",
+      "resendSuccess": "验证邮件发送成功！请查收您的邮箱。",
+      "resendError": "发送验证邮件失败，请重试。",
+      "backToLogin": "返回登录",
+      "securityNote": "为了您的安全，验证链接将在24小时后失效。"
+    },
+    "verifyEmail": {
+      "verifying": "正在验证邮箱",
+      "verifyingDescription": "请稍候，我们正在验证您的邮箱地址...",
+      "success": "邮箱验证成功！",
+      "successDescription": "您的邮箱已成功验证！正在跳转到登录页面...",
+      "alreadyVerified": "已验证",
+      "failed": "验证失败",
+      "goToLogin": "前往登录",
+      "backToSignUp": "返回注册",
+      "requestNew": "重新发送验证邮件",
+      "checkSpamNote": "如果没有收到邮件，请检查垃圾邮件文件夹"
+    },
+    "emailVerifiedGuard": {
+      "title": "需要验证邮箱",
+      "description": "请验证您的邮箱地址以访问此页面。请查收我们发送到以下邮箱的验证链接：",
+      "resendButton": "重新发送验证邮件",
+      "resending": "发送中...",
+      "resendSuccess": "验证邮件已发送！请查收您的邮箱。",
+      "resendError": "发送验证邮件失败，请重试。",
+      "signOutLink": "退出并使用其他账户"
+    }
+  },
+  "demo": {
+    "badge": "先试后买",
+    "title": "体验 Sistine AI",
+    "description": "无需注册即可测试我们强大的 AI 功能。获得 3 次免费试用机会，探索我们的能力。",
+    "limitReached": "您已达到演示限制。立即注册以继续使用完整功能的 AI 工具！",
+    "signUpNow": "立即注册",
+    "tryNow": "立即试用",
+    "backToFeatures": "返回功能列表",
+    "send": "发送",
+    "generate": "生成",
+    "usageInfo": "已使用 {used}/{max} 次",
+    "demoNote": "这是演示预览。实际效果会更好！",
+    "responses": {
+      "chat": "这是对 \"{query}\" 的演示回复。在完整版本中，您将获得由先进语言模型驱动的智能 AI 响应。"
+    },
+    "features": {
+      "chat": {
+        "title": "AI 聊天助手",
+        "description": "与我们的 AI 进行智能对话。提问、寻求帮助或只是聊天！",
+        "placeholder": "开始对话...",
+        "inputPlaceholder": "输入您的消息..."
+      },
+      "image": {
+        "title": "AI 图像生成",
+        "description": "使用最先进的 AI 模型从文本描述创建惊艳的图像。",
+        "inputPlaceholder": "描述您想要创建的图像..."
+      },
+      "video": {
+        "title": "AI 视频创作",
+        "description": "使用我们先进的 AI 技术从文本提示生成专业视频。",
+        "inputPlaceholder": "描述您想要创建的视频..."
+      }
+    },
+    "cta": {
+      "title": "准备好完整体验了吗？",
+      "description": "解锁无限 AI 生成、高级功能和优先支持。",
+      "signUp": "开始免费试用",
+      "viewPricing": "查看定价"
+    },
+    "subtitle": "无需登录即可体验真实的产品演示界面。",
+    "credits": "积分",
+    "backToDashboard": "返回控制台",
+    "insufficientCredits": "积分不足",
+    "startChat": "开始对话",
+    "startChatDescription": "随便问点什么，看看助手能做些什么。",
+    "sendHint": "按 Enter 键发送",
+    "tabs": {
+      "chat": "对话",
+      "image": "图像",
+      "video": "视频"
+    },
+    "chat": {
+      "title": "AI 对话体验",
+      "description": "体验助手的流式回复效果。",
+      "placeholder": "输入你的消息..."
+    },
+    "image": {
+      "title": "图像生成",
+      "description": "上传参考图片并描述你想要的修改效果。",
+      "placeholder": "描述你想如何修改这张图像...",
+      "downloadImage": "下载图像",
+      "promptLabel": "提示词",
+      "promptPlaceholder": "描述你想如何修改这张图像...",
+      "enterHint": "按 Enter 键生成",
+      "charCount": "{count}/{max}",
+      "suggestionsTitle": "提示词建议",
+      "suggestions": {
+        "portrait": "专业肖像摄影，柔和光线，景深虚化，8K细节",
+        "architecture": "现代建筑摄影，黄金时刻，戏剧性光影，建筑细节",
+        "cinematic": "电影级画面，宽屏构图，专业调色，戏剧性光影",
+        "product": "产品渲染，工作室灯光，极简背景，商业摄影",
+        "artistic": "艺术创作，油画质感，印象派风格，细腻笔触"
+      },
+      "reference": {
+        "label": "参考图片",
+        "cta": "点击上传参考图片",
+        "hint": "支持 JPG/PNG，大小不超过 10MB",
+        "replace": "重新上传",
+        "remove": "移除",
+        "previewAlt": "参考图片预览"
+      },
+      "errors": {
+        "invalidFileType": "请上传有效的图片文件。",
+        "fileTooLarge": "图片大小需小于 10MB。",
+        "uploadFailed": "图片上传失败，请稍后重试。",
+        "missingReferenceImage": "请先上传参考图片。"
+      },
+      "settings": {
+        "title": "设置",
+        "resolution": "输出尺寸",
+        "watermark": "水印",
+        "adaptiveSize": "与参考图像保持一致"
+      },
+      "generate": {
+        "button": "生成",
+        "loading": "生成中...",
+        "cost": "{amount} 积分"
+      },
+      "gallery": {
+        "title": "演示图集",
+        "autoplayPause": "暂停自动播放",
+        "autoplayStart": "开始自动播放",
+        "usePromptHint": "点击使用该提示词",
+        "presetBadge": "预设示例",
+        "userBadge": "你的生成结果",
+        "generating": "正在生成图像...",
+        "noImageAvailable": "暂无图像",
+        "empty": "还没有生成图像",
+        "sourceImage": "参考图片"
+      }
+    },
+    "video": {
+      "title": "视频生成",
+      "description": "将文本或图像转换为精彩的视频。",
+      "placeholder": "描述你想要生成的视频...",
+      "downloadVideo": "下载视频",
+      "processing": "视频处理中...",
+      "configuration": "配置面板",
+      "generationMode": "生成模式",
+      "modes": {
+        "text": "文本转视频",
+        "image": "图像转视频"
+      },
+      "text": {
+        "descriptionLabel": "视频描述",
+        "quickPromptsLabel": "快速提示：",
+        "prompt1": "群山日落与流动的云彩",
+        "prompt2": "海浪冲击海岸",
+        "prompt3": "霓虹灯下的夜晚街道",
+        "prompt4": "微风吹过的森林"
+      },
+      "imageUpload": {
+        "label": "参考图像",
+        "cta": "点击上传图像",
+        "limit": "支持 JPG、PNG，最大 10MB",
+        "motionLabel": "运动描述（可选）",
+        "motionPlaceholder": "描述你希望出现的运动效果..."
+      },
+      "advanced": {
+        "toggle": "高级设置",
+        "resolution": "分辨率",
+        "resolutionOptions": {
+          "480p": "480p - 标清",
+          "720p": "720p - 高清",
+          "1080p": "1080p - 全高清"
+        },
+        "durationLabel": "时长：{seconds} 秒",
+        "rangeStart": "3 秒",
+        "rangeEnd": "10 秒",
+        "watermark": "添加水印"
+      },
+      "generate": {
+        "loading": "生成中...",
+        "button": "生成视频（{amount} 积分）"
+      },
+      "gallery": {
+        "title": "演示视频",
+        "autoplayPause": "暂停自动播放",
+        "autoplayStart": "开始自动播放",
+        "usePromptHint": "点击使用该提示词",
+        "presetBadge": "预设示例",
+        "userBadge": "你的生成结果",
+        "fullscreen": "全屏",
+        "download": "下载",
+        "processing": "视频处理中...",
+        "failed": "视频生成失败",
+        "empty": "还没有生成视频"
+      }
+    }
+  },
+  "Admin": {
+    "sidebar": {
+      "title": "管理后台",
+      "subtitle": "系统管理",
+      "dashboard": "仪表板",
+      "users": "用户管理",
+      "subscriptions": "订阅管理",
+      "credits": "积分管理",
+      "backToDashboard": "返回用户面板"
+    },
+    "header": {
+      "welcome": "欢迎",
+      "adminBadge": "管理员"
+    },
+    "dashboard": {
+      "title": "管理员仪表板",
+      "totalUsers": "总用户数",
+      "activeUsers": "活跃用户",
+      "totalRevenue": "总收入",
+      "totalPayments": "总支付数",
+      "totalChats": "总对话数",
+      "creditsUsed": "已消耗积分",
+      "recentUsers": "最近注册用户",
+      "recentPayments": "最近支付记录",
+      "credits": "积分",
+      "viewAllUsers": "查看所有用户",
+      "viewAllPayments": "查看所有支付",
+      "unknownUser": "未知用户"
+    },
+    "users": {
+      "title": "用户管理",
+      "searchPlaceholder": "搜索用户姓名或邮箱...",
+      "searchAction": "搜索",
+      "clearSearch": "清空",
+      "totalUsers": "共 {count} 个用户",
+      "matchingUsers": "\"{query}\" 匹配到 {count} 个用户",
+      "pageSummary": "显示第 {from}-{to} 条，共 {total} 条",
+      "emptyState": "暂无用户",
+      "emptySearchState": "没有匹配的用户",
+      "user": "用户",
+      "role": "角色",
+      "credits": "积分",
+      "status": "状态",
+      "joined": "加入时间",
+      "actions": "操作",
+      "admin": "管理员",
+      "banned": "已禁用",
+      "active": "活跃",
+      "unverified": "未验证",
+      "edit": "编辑",
+      "ban": "禁用",
+      "unban": "解禁",
+      "viewDetails": "查看详情",
+      "enterCredits": "输入新的积分数量",
+      "banReason": "禁用原因",
+      "banExpires": "禁用到期",
+      "userDetails": "用户详情",
+      "name": "姓名",
+      "email": "邮箱",
+      "lastActive": "最后活跃",
+      "close": "关闭",
+      "roleUpdated": "角色已更新",
+      "roleUpdateFailed": "角色更新失败",
+      "userBanned": "用户已禁用",
+      "userUnbanned": "用户已解禁",
+      "banFailed": "禁用操作失败",
+      "creditsUpdated": "积分已更新",
+      "creditsUpdateFailed": "积分更新失败",
+      "subscription": "订阅",
+      "manage": "管理",
+      "adjust": "调整",
+      "adjustCredits": "调整积分",
+      "currentCredits": "当前积分",
+      "adjustment": "调整值",
+      "newBalance": "新余额",
+      "reason": "原因",
+      "manualAdjustment": "手动调整",
+      "refund": "退款",
+      "bonus": "奖励",
+      "compensation": "补偿",
+      "cancel": "取消",
+      "addCredits": "增加积分",
+      "deductCredits": "扣除积分",
+      "manageSubscription": "管理订阅",
+      "currentPlan": "当前套餐",
+      "selectPlan": "选择套餐",
+      "updateSubscription": "更新订阅",
+      "subscriptionUpdated": "订阅已更新",
+      "subscriptionUpdateFailed": "订阅更新失败",
+      "pagination": {
+        "previous": "上一页",
+        "next": "下一页",
+        "page": "第 {{current}} / {{total}} 页"
+      }
+    },
+    "subscriptions": {
+      "title": "订阅管理",
+      "totalSubscriptions": "总订阅数",
+      "activeSubscriptions": "活跃订阅",
+      "canceledSubscriptions": "已取消",
+      "expiredSubscriptions": "已过期",
+      "searchPlaceholder": "搜索用户、套餐...",
+      "allStatus": "所有状态",
+      "active": "活跃",
+      "canceled": "已取消",
+      "expired": "已过期",
+      "trial": "试用中",
+      "user": "用户",
+      "plan": "套餐",
+      "status": "状态",
+      "expiryDate": "到期日期",
+      "createdAt": "创建时间",
+      "daysRemaining": "剩余 {{days}} 天",
+      "unknownUser": "未知用户",
+      "noSubscriptions": "暂无订阅记录",
+      "pagination": {
+        "previous": "上一页",
+        "next": "下一页",
+        "page": "第 {{current}} / {{total}} 页"
+      }
+    },
+    "credits": {
+      "title": "积分管理",
+      "totalIssued": "总发放",
+      "totalUsed": "总消耗",
+      "totalTransactions": "总交易数",
+      "avgUsage": "平均消耗",
+      "searchPlaceholder": "搜索用户、原因...",
+      "allTypes": "所有类型",
+      "earned": "获得",
+      "spent": "消耗",
+      "user": "用户",
+      "change": "变动",
+      "reason": "原因",
+      "balance": "余额",
+      "date": "时间",
+      "subscriptionCycle": "订阅周期",
+      "subscriptionSchedule": "订阅分期",
+      "oneTimePack": "积分包",
+      "chatUsage": "对话消耗",
+      "adjustment": "手动调整",
+      "unknownUser": "未知用户",
+      "noTransactions": "暂无交易记录",
+      "topUsers": "积分排行榜",
+      "pagination": {
+        "previous": "上一页",
+        "next": "下一页",
+        "page": "第 {{current}} / {{total}} 页"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "仪表盘",
+    "welcome": "欢迎回来",
+    "welcomeBonus": {
+      "title": "🎉 欢迎加入 Sistine!",
+      "message": "恭喜您成功注册！我们已为您的账户赠送 300 积分新人礼包。",
+      "description": "这些积分可用于体验我们的 AI 对话、图像生成、视频生成等功能。",
+      "ctaButton": "立即体验",
+      "dismissButton": "知道了"
+    },
+    "cards": {
+      "personalInfo": {
+        "title": "个人信息",
+        "labels": {
+          "name": "姓名",
+          "email": "邮箱",
+          "status": "状态",
+          "notSet": "未设置"
+        }
+      },
+      "quickActions": {
+        "title": "快捷操作",
+        "editProfile": "编辑个人资料",
+        "accountSettings": "账户设置",
+        "securitySettings": "安全设置"
+      },
+      "statistics": {
+        "title": "统计信息",
+        "labels": {
+          "loginCount": "登录次数",
+          "memberSince": "注册于",
+          "plan": "当前方案",
+          "credits": "点数",
+          "today": "今天"
+        },
+        "plans": {
+          "free": "免费版",
+          "starterMonthly": "入门版 (月付)",
+          "starterYearly": "入门版 (年付)",
+          "proMonthly": "专业版 (月付)",
+          "proYearly": "专业版 (年付)"
+        },
+        "buyCredits": "购买 {credits} 点数 ({price})",
+        "viewCredits": "查看积分"
+      }
+    },
+    "paymentSuccess": "✅ 支付成功！您的点数将很快更新。",
+    "creditHistory": {
+      "title": "积分记录",
+      "noRecords": "暂无积分记录",
+      "columns": {
+        "time": "时间",
+        "type": "类型",
+        "description": "说明",
+        "amount": "金额"
+      },
+      "types": {
+        "purchase": "购买",
+        "subscription": "订阅",
+        "usage": "消耗",
+        "refund": "退款",
+        "adjustment": "调整",
+        "other": "其他"
+      },
+      "reasons": {
+        "subscription_cycle": "订阅赠送积分",
+        "one_time_pack": "购买积分包",
+        "chat_usage": "AI 对话消耗",
+        "refund": "退款返还",
+        "adjustment": "系统调整",
+        "registration_bonus": "新人注册礼包"
+      }
+    }
+  },
+  "credits": {
+    "title": "积分管理",
+    "subtitle": "管理您的积分并查看使用记录",
+    "balance": {
+      "title": "当前余额",
+      "description": "可用于 AI 操作的积分"
+    },
+    "purchase": {
+      "title": "快速购买",
+      "credits": "积分"
+    },
+    "statistics": {
+      "title": "使用统计",
+      "thisMonth": "本月消耗",
+      "totalPurchased": "累计购买",
+      "totalUsed": "累计使用"
+    },
+    "history": {
+      "title": "交易记录",
+      "noRecords": "暂无交易记录",
+      "loadMore": "加载更多",
+      "columns": {
+        "time": "时间",
+        "type": "类型",
+        "description": "说明",
+        "amount": "数量",
+        "balance": "余额"
+      },
+      "types": {
+        "purchase": "购买",
+        "subscription": "订阅",
+        "usage": "消耗",
+        "refund": "退款",
+        "adjustment": "调整",
+        "bonus": "奖励",
+        "other": "其他"
+      },
+      "reasons": {
+        "subscription_cycle": "订阅赠送积分",
+        "one_time_pack": "购买积分包",
+        "chat_usage": "AI 对话消耗",
+        "image_generation": "图像生成",
+        "video_generation": "视频生成",
+        "refund": "退款返还",
+        "adjustment": "系统调整",
+        "registration_bonus": "新人注册礼包",
+        "welcome_bonus": "欢迎奖励",
+        "referral_bonus": "推荐奖励"
+      }
+    }
+  },
+  "profile": {
+    "title": "个人资料",
+    "subtitle": "管理您的账户设置和偏好",
+    "sections": {
+      "basicInfo": {
+        "title": "基本信息",
+        "fullName": "姓名",
+        "email": "邮箱地址",
+        "verificationStatus": "验证状态",
+        "notSet": "未设置",
+        "nameNotSet": "姓名未设置",
+        "accountId": "账户 ID"
+      },
+      "accountSettings": {
+        "title": "账户详情",
+        "memberSince": "注册于",
+        "lastLogin": "最近登录",
+        "accountType": "账户类型"
+      }
+    },
+    "form": {
+      "nameLabel": "姓名",
+      "namePlaceholder": "请输入您的姓名",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "请输入您的邮箱地址",
+      "updateButton": "更新资料",
+      "updating": "更新中...",
+      "updateSuccess": "个人资料更新成功",
+      "updateError": "个人资料更新失败"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "subtitle": "在一个地方管理个人资料、账单和账户安全。",
+    "sections": {
+      "profile": {
+        "title": "个人资料",
+        "description": "更新在工作区中展示的名称。",
+        "nameLabel": "显示名称",
+        "namePlaceholder": "输入您的名字",
+        "emailLabel": "邮箱地址",
+        "save": "保存更改",
+        "saving": "保存中...",
+        "saveSuccess": "个人资料已更新。",
+        "saveError": "更新个人资料失败。",
+        "validation": "名称至少需要 2 个字符。"
+      },
+      "billing": {
+        "title": "账单与积分",
+        "description": "查看当前方案，并快速进入积分和定价页面。",
+        "currentPlan": "当前方案",
+        "creditsBalance": "积分余额",
+        "renewal": "下次续费",
+        "noRenewal": "当前没有激活订阅",
+        "manageCredits": "管理积分",
+        "viewPricing": "查看定价"
+      },
+      "security": {
+        "title": "安全",
+        "description": "查看账户状态并安全退出登录。",
+        "emailStatus": "邮箱状态",
+        "accountId": "账户 ID",
+        "memberSince": "注册时间",
+        "viewProfile": "查看个人资料",
+        "signOut": "退出登录"
+      }
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "我们很乐意倾听您的声音。给我们发送消息，我们会尽快回复。",
+    "description": "请联系我们，我们会以光速回复您。",
+    "testimonial": {
+      "title": "Sistine AI 被数千名用户使用",
+      "description": "在众多 AI 应用中，Sistine AI 以其顶级的 AI 能力脱颖而出。"
+    },
+    "form": {
+      "nameLabel": "姓名",
+      "namePlaceholder": "张三",
+      "emailLabel": "邮箱地址",
+      "emailPlaceholder": "hello@example.com",
+      "companyLabel": "公司",
+      "companyPlaceholder": "某某科技有限公司",
+      "messageLabel": "消息",
+      "messagePlaceholder": "请在此处输入您的消息",
+      "submitButton": "提交",
+      "submitting": "发送中...",
+      "submitSuccess": "消息发送成功！",
+      "submitError": "消息发送失败，请重试。"
+    }
+  },
+  "blog": {
+    "title": "博客",
+    "subtitle": "来自我们团队的最新见解与更新",
+    "readMore": "阅读更多",
+    "minRead": "分钟阅读"
+  },
+  "errors": {
+    "404": {
+      "title": "404 - 页面未找到",
+      "message": "您正在寻找的页面不存在。",
+      "backHome": "返回首页"
+    },
+    "500": {
+      "title": "出错了",
+      "message": "我们遇到了一些技术问题，请稍后重试。",
+      "backHome": "返回首页"
+    },
+    "general": {
+      "title": "发生错误",
+      "message": "发生了一些意外情况，请重试。",
+      "tryAgain": "重试"
+    }
+  },
+  "featuredTestimonials": {
+    "people": [
+      {
+        "name": "张伟",
+        "designation": "软件工程师"
+      },
+      {
+        "name": "王强",
+        "designation": "产品经理"
+      },
+      {
+        "name": "李娜",
+        "designation": "数据科学家"
+      },
+      {
+        "name": "陈婷",
+        "designation": "UX设计师"
+      },
+      {
+        "name": "赵明",
+        "designation": "全栈开发者"
+      },
+      {
+        "name": "朱悦",
+        "designation": "探索者"
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "利用 AI 的力量，将您的 SaaS 创意转化为现实。",
+    "product": {
+      "title": "产品",
+      "features": "功能",
+      "pricing": "定价",
+      "documentation": "文档"
+    },
+    "company": {
+      "title": "公司",
+      "about": "关于我们",
+      "blog": "博客",
+      "careers": "招聘"
+    },
+    "legal": {
+      "title": "法律",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "cookies": "Cookie 政策"
+    },
+    "social": {
+      "title": "社交",
+      "twitter": "Twitter",
+      "linkedin": "领英",
+      "github": "GitHub"
+    },
+    "newsletter": {
+      "title": "订阅邮件",
+      "description": "获取最新动态和资讯，直接发送到您的邮箱。",
+      "placeholder": "输入您的邮箱",
+      "subscribe": "订阅"
+    }
+  }
+}

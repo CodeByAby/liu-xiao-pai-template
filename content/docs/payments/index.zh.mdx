@@ -1,0 +1,50 @@
+---
+title: 支付系统概览
+description: 使用 Creem 的订阅计费和一次性购买。
+---
+
+## 概述
+
+Sistine Starter 使用 [Creem](https://creem.io) 进行支付处理，支持周期性订阅和一次性积分包购买。
+
+## 订阅计划
+
+在 `constants/billing.ts` 中配置：
+
+| 计划 | 价格 | 积分 |
+|------|------|------|
+| Starter 月付 | $29/月 | 1,000/月 |
+| Starter 年付 | $290/年 | 12,000/年（每月发放 1,000） |
+| Pro 月付 | $99/月 | 10,000/月 |
+| Pro 年付 | $990/年 | 120,000/年（每月发放 10,000） |
+
+## 一次性积分包
+
+| 积分包 | 价格 | 积分 |
+|--------|------|------|
+| 200 积分 | $5 | 200 |
+
+## 支付流程
+
+1. **用户点击购买** → 前端调用 `/api/payments/creem/checkout`
+2. **创建 Checkout Session** → Creem API 返回支付链接
+3. **用户完成支付** → Creem 发送 webhook 到 `/api/payments/creem/webhook`
+4. **Webhook 处理**：
+   - 签名验证（HMAC-SHA256）
+   - 幂等性检查（防止重复处理）
+   - 插入支付记录
+   - 创建/更新订阅记录
+   - 发放积分
+   - 发送确认邮件
+
+## 年付订阅分期发放
+
+年付计划不会一次性发放所有积分，而是按月分期：
+
+- 购买年付计划 → 立即发放第一个月积分
+- 剩余 11 个月 → 计划存储在 `subscriptionCreditSchedule` 表中
+- 定时任务（`/api/cron/subscription-grants`）每小时运行，处理到期的积分发放
+
+## 测试
+
+在 `.env` 中设置 `CREEM_SIMULATE="true"` 可跳过真实支付，方便开发测试。

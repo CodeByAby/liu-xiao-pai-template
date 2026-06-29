@@ -1,0 +1,80 @@
+---
+title: Credit System
+description: How the credit-based billing system works.
+---
+
+## Architecture
+
+The credit system uses a **dual-write pattern** for balance tracking:
+
+- `user.credits` — Fast-access current balance (for quick reads)
+- `creditLedger` — Immutable audit trail of all credit changes
+
+Both are always updated in a single database transaction to ensure consistency.
+
+## Core API
+
+All functions are in `lib/credits.ts`:
+
+```typescript
+// Check user's balance
+const credits = await getUserCredits(userId);
+
+// Check if user can afford an operation
+const canAfford = await canUserAfford(userId, 10);
+
+// Deduct credits (transactional)
+await deductCredits(userId, 10, 'chat_usage');
+
+// Refund credits (e.g., on API failure)
+await refundCredits(userId, 10, 'chat_refund');
+```
+
+## Credit Costs
+
+| Operation | Cost | Configured In |
+|-----------|------|---------------|
+| Chat message | 10 credits | `lib/credits.ts` (`CHAT_CREDIT_COST`) |
+| Image generation | 20 credits | `app/api/image/generate/route.ts` |
+| Video generation | 50 credits | `app/api/video/generate/route.ts` |
+
+## Credit Sources
+
+| Source | Trigger | Amount |
+|--------|---------|--------|
+| Registration bonus | New user signup | 300 credits |
+| Subscription (monthly) | Webhook / cron | Per plan config |
+| One-time pack | Webhook | Per pack config |
+| Admin adjustment | Manual via admin panel | Custom |
+
+## Ledger Reasons
+
+Each `creditLedger` entry has a `reason` field:
+
+- `registration_bonus` — Free credits on signup
+- `chat_usage` — Chat message deduction
+- `image_usage` — Image generation deduction
+- `video_usage` — Video generation deduction
+- `subscription_cycle` — Monthly subscription grant
+- `one_time_pack` — Credit pack purchase
+- `admin_adjustment` — Manual admin change
+
+## Credit Compensation
+
+AI API calls use a **deduct-first, refund-on-failure** pattern:
+
+```typescript
+// 1. Deduct credits
+await deductCredits(userId, cost, 'chat_usage');
+
+try {
+  // 2. Call AI API
+  const result = await callAI(...);
+} catch (error) {
+  // 3. Refund on failure
+  await refundCredits(userId, cost, 'chat_refund');
+  throw error;
+}
+```
+
+This ensures users never lose credits when the AI provider fails.

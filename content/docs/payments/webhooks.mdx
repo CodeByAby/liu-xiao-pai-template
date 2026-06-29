@@ -1,0 +1,57 @@
+---
+title: Webhooks
+description: How Creem webhooks are processed.
+---
+
+## Endpoint
+
+```
+POST /api/payments/creem/webhook
+```
+
+## Security
+
+### Signature Verification
+
+Every webhook is verified using HMAC-SHA256:
+
+```typescript
+const isValid = verifyWebhookSignature(body, signature, CREEM_WEBHOOK_SECRET);
+```
+
+The signature is in the `creem-signature` header. Timing-safe comparison is used to prevent timing attacks.
+
+### Idempotency
+
+Duplicate webhooks are handled by checking `providerPaymentId` in the `payment` table. If a payment with the same ID already exists, the webhook is acknowledged without re-processing.
+
+## Supported Events
+
+| Event | Action |
+|-------|--------|
+| `checkout.completed` | Create payment, grant credits, send email |
+| `subscription.paid` | Grant monthly credits, update subscription |
+| `subscription.active` | Activate subscription record |
+
+## Setup
+
+In your Creem Dashboard, set the webhook URL to:
+
+```
+https://your-domain.com/api/payments/creem/webhook
+```
+
+And configure the webhook secret in `.env`:
+
+```ini
+CREEM_WEBHOOK_SECRET="whsec_your_secret"
+```
+
+## Debugging
+
+If webhooks aren't working:
+
+1. Check Creem Dashboard webhook logs for delivery status
+2. Verify `CREEM_WEBHOOK_SECRET` matches your Creem settings
+3. Ensure the endpoint is publicly accessible (not behind auth)
+4. Check server logs for signature verification errors

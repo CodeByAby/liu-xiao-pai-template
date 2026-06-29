@@ -1,0 +1,47 @@
+---
+title: Video Generation
+description: Async AI video generation with task tracking.
+---
+
+## Overview
+
+Video generation is an **asynchronous** process. Unlike chat and image generation, results are not immediately available.
+
+## Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/video/generate` | POST | Submit generation request |
+| `/api/video/status` | GET | Check task status |
+
+## Async Workflow
+
+1. **Submit** — User sends prompt to `/api/video/generate`
+2. **Task Created** — Volcano Engine returns a `taskId`
+3. **Poll** — Client polls `/api/video/status?taskId=xxx`
+4. **Complete** — When status is `completed`, `resultUrl` contains the video
+
+## Request
+
+```json
+{
+  "prompt": "A cat playing piano",
+  "referenceImage": "optional-base64-or-url"
+}
+```
+
+Supports both text-to-video and image-to-video modes.
+
+## Credit Cost
+
+- **50 credits** per video generation
+- Credits are deducted at submission, refunded if the task fails
+
+## Task States
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Task submitted, waiting to start |
+| `processing` | Generation in progress |
+| `completed` | Video ready at `resultUrl` |
+| `failed` | Generation failed, credits refunded |

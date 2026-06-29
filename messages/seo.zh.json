@@ -1,0 +1,52 @@
+{
+  "home": {
+    "title": "Sistine AI - 通过 Vibe Coding 将您的 AI SaaS 产品投入生产",
+    "description": "Sistine AI 是一个提供广泛 AI 工具和服务的平台,帮助您掌控业务。生成图像、文本以及启动业务所需的一切。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "pricing": {
+    "title": "定价方案 - Sistine AI SaaS 入门套件",
+    "description": "为您的 AI SaaS 选择完美的方案。此定价模块由 Sistine Starter 构建 - 与 Creem 完全集成,支持订阅支付。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "blog": {
+    "title": "博客 - Sistine AI",
+    "description": "来自我们团队的最新见解与更新。了解 AI SaaS 开发、vibe coding 以及构建生产级应用的最佳实践。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "contact": {
+    "title": "联系我们 - Sistine AI",
+    "description": "与 Sistine AI 团队取得联系。我们很乐意倾听您的声音,并会尽快回复。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "login": {
+    "title": "登录 - Sistine AI",
+    "description": "登录您的 Sistine AI 账户,访问为您业务提供的强大 AI 工具和服务。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "signup": {
+    "title": "注册 - Sistine AI",
+    "description": "创建您的 Sistine AI 账户,立即使用我们强大的工具开始构建您的 AI SaaS 产品。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "terms": {
+    "title": "服务条款 - Sistine AI",
+    "description": "阅读我们的服务条款,了解使用 Sistine AI 平台的规则和指南。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "privacy": {
+    "title": "隐私政策 - Sistine AI",
+    "description": "了解 Sistine AI 如何收集、使用和保护您的个人信息和数据。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "cookies": {
+    "title": "Cookie 政策 - Sistine AI",
+    "description": "了解 Sistine AI 如何在我们的平台上使用 cookies 和类似的跟踪技术。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "refund": {
+    "title": "退款政策 - Sistine AI",
+    "description": "查看我们的退款政策,了解申请退款的条件和流程。",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  }
+}

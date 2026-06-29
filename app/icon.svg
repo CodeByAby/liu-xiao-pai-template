@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" fill="white"/>
+  <!-- 教堂主体 -->
+  <path d="M16 4L10 10V28H22V10L16 4Z" fill="#000" opacity="0.9"/>
+  <!-- 教堂尖顶十字架 -->
+  <path d="M16 1V4M14.5 2.5H17.5" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+  <!-- 教堂大门 -->
+  <path d="M14 28V21C14 19.9 14.9 19 16 19C17.1 19 18 19.9 18 21V28" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 教堂窗户 -->
+  <circle cx="16" cy="13" r="2" stroke="#FFF" stroke-width="1.5" fill="none"/>
+  <!-- 侧翼 -->
+  <path d="M7 13V28H10V10M25 13V28H22V10" fill="#000" opacity="0.6"/>
+</svg>

@@ -1,0 +1,52 @@
+{
+  "home": {
+    "title": "Sistine AI - Vibe Code Your AI SaaS to Production",
+    "description": "Sistine AI is a platform that provides a wide range of AI tools and services to help you stay on top of your business. Generate images, text and everything else that you need to get your business off the ground.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "pricing": {
+    "title": "Pricing - Sistine AI SaaS Starter",
+    "description": "Choose the perfect plan for your AI SaaS. This pricing section is built with Sistine Starter - fully integrated with Creem for recurring payments.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "blog": {
+    "title": "Blog - Sistine AI",
+    "description": "Latest insights and updates from our team. Learn about AI SaaS development, vibe coding, and best practices for building production-ready applications.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "contact": {
+    "title": "Contact Us - Sistine AI",
+    "description": "Get in touch with the Sistine AI team. We'd love to hear from you and respond as quickly as possible.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "login": {
+    "title": "Login - Sistine AI",
+    "description": "Sign in to your Sistine AI account to access powerful AI tools and services for your business.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "signup": {
+    "title": "Sign Up - Sistine AI",
+    "description": "Create your Sistine AI account and start building your AI SaaS product today with our powerful tools.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "terms": {
+    "title": "Terms of Service - Sistine AI",
+    "description": "Read our terms of service to understand the rules and guidelines for using Sistine AI platform.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "privacy": {
+    "title": "Privacy Policy - Sistine AI",
+    "description": "Learn how Sistine AI collects, uses, and protects your personal information and data.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "cookies": {
+    "title": "Cookie Policy - Sistine AI",
+    "description": "Understand how Sistine AI uses cookies and similar tracking technologies on our platform.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  },
+  "refund": {
+    "title": "Refund Policy - Sistine AI",
+    "description": "Review our refund policy to understand the conditions and process for requesting refunds.",
+    "ogImage": "https://ai-saas-template-aceternity.vercel.app/banner.png"
+  }
+}

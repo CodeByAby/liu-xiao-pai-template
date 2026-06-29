@@ -1,0 +1,54 @@
+---
+title: 图像生成
+description: 基于参考图的 AI 图像生成。
+---
+
+## 概述
+
+图像生成使用豆包的图生图模型，需要参考图作为输入。
+
+## 端点
+
+```
+POST /api/image/generate
+```
+
+## 请求
+
+```json
+{
+  "prompt": "未来感的城市天际线",
+  "referenceImage": "base64编码的图片或URL",
+  "size": "1K"
+}
+```
+
+### 支持的尺寸
+
+- `adaptive` — 从参考图自动检测
+- `1K` — 1024px
+- `2K` — 2048px
+- `4K` — 4096px
+
+## 响应流程
+
+1. 验证用户会话和积分
+2. 扣除 20 积分
+3. 发送请求到火山引擎
+4. 上传结果到 R2 存储（如已配置）
+5. 保存到 `generationHistory` 表
+6. 返回图片 URL
+
+## 存储
+
+生成的图片会上传到 S3 兼容存储（Cloudflare R2），如已配置。如果存储不可用，则使用火山引擎的原始 URL 作为备用。
+
+## 历史记录
+
+所有生成记录保存在 `generationHistory` 表中：
+
+- `type` — `image`
+- `prompt` — 用户的提示词
+- `resultUrl` — 生成图片的 URL
+- `status` — `completed` 或 `failed`
+- `creditsUsed` — 消耗的积分

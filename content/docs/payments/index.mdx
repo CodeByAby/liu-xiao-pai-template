@@ -1,0 +1,50 @@
+---
+title: Payments Overview
+description: Subscription billing and one-time purchases with Creem.
+---
+
+## Overview
+
+Sistine Starter uses [Creem](https://creem.io) for payment processing, supporting both recurring subscriptions and one-time credit pack purchases.
+
+## Subscription Plans
+
+Configured in `constants/billing.ts`:
+
+| Plan | Price | Credits |
+|------|-------|---------|
+| Starter Monthly | $29/mo | 1,000/month |
+| Starter Yearly | $290/yr | 12,000/year (1,000/month installments) |
+| Pro Monthly | $99/mo | 10,000/month |
+| Pro Yearly | $990/yr | 120,000/year (10,000/month installments) |
+
+## One-Time Credit Packs
+
+| Pack | Price | Credits |
+|------|-------|---------|
+| 200 Credits | $5 | 200 |
+
+## Payment Flow
+
+1. **User clicks buy** → Frontend calls `/api/payments/creem/checkout`
+2. **Checkout session created** → Creem API returns a payment URL
+3. **User completes payment** → Creem sends webhook to `/api/payments/creem/webhook`
+4. **Webhook processing**:
+   - Signature verification (HMAC-SHA256)
+   - Idempotency check (prevents duplicate processing)
+   - Payment record inserted
+   - Subscription record created/updated
+   - Credits granted to user
+   - Confirmation email sent
+
+## Annual Subscription Installments
+
+Annual plans don't grant all credits at once. Instead, credits are distributed monthly:
+
+- Year plan purchased → first month's credits granted immediately
+- Remaining 11 months → credits scheduled in `subscriptionCreditSchedule` table
+- Cron job (`/api/cron/subscription-grants`) runs hourly to process scheduled grants
+
+## Testing
+
+Set `CREEM_SIMULATE="true"` in `.env` to bypass real payment processing during development.
